@@ -46,20 +46,20 @@ coerce URI,
 subtype Dir, as 'Path::Class::Dir';
 
 coerce Dir,
-    from Str,             via { Path::Class::Dir->new( expand_tilde($_) ) },
-    from ArrayRef,        via { Path::Class::Dir->new( expand_tilde( @{$_} ) ) };
+    from Str,             via { Path::Class::Dir->new( _expand_tilde($_) ) },
+    from ArrayRef,        via { Path::Class::Dir->new( _expand_tilde( @{$_} ) ) };
 
 #-----------------------------------------------------------------------------
 
 subtype File, as 'Path::Class::File';
 
 coerce File,
-    from Str,             via { Path::Class::File->new( expand_tilde($_) ) },
+    from Str,             via { Path::Class::File->new( _expand_tilde($_) ) },
     from ArrayRef,        via { Path::Class::File->new( @{$_} ) };
 
 #-----------------------------------------------------------------------------
 
-sub expand_tilde {
+sub _expand_tilde {
     my (@paths) = @_;
 
     $paths[0] =~ s|\A ~ (?= \W )|File::HomeDir->my_home()|xe;

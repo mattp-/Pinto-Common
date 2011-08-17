@@ -57,6 +57,12 @@ sub _logit {
 #-----------------------------------------------------------------------------
 # Public methods
 
+=method debug( $message )
+
+Logs a message to C<STDOUT> if the C<log_level> is 1 or higher.
+
+=cut
+
 sub debug {
     my ($self, $message) = @_;
 
@@ -66,6 +72,12 @@ sub debug {
 }
 
 #-----------------------------------------------------------------------------
+
+=method info( $message )
+
+Logs a message to C<STDOUT> if the C<log_level> is 0 or higher.
+
+=cut
 
 sub info {
     my ($self, $message) = @_;
@@ -77,6 +89,12 @@ sub info {
 
 #-----------------------------------------------------------------------------
 
+=method whine( $message )
+
+Logs a message to C<STDERR> if the C<log_level> is -1 or higher.
+
+=cut
+
 sub whine {
     my ($self, $message) = @_;
 
@@ -86,6 +104,12 @@ sub whine {
 }
 
 #-----------------------------------------------------------------------------
+
+=method fatal( $message )
+
+Dies with the given message.
+
+=cut
 
 sub fatal {
     my ($self, $message) = @_;
