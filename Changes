@@ -1,10 +1,13 @@
 {{$NEXT}}
 
+    Logger output is now colorized.  You can disable colorization in
+    your configuration.
+
 0.014     2011-08-17 22:56:04 America/Los_Angeles
 
-    You can now tell Pinto::Logger where to write to.
-    This can be a file, a filehandle, or a scalar ref.
-    This is mostly useful for testing purposes.
+    You can now tell Pinto::Logger where to write to.  This can be a
+    file, a filehandle, or a scalar ref.  This is mostly useful for
+    testing purposes.
 
 0.013     2011-08-17 15:55:53 America/Los_Angeles
 
