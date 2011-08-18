@@ -3,7 +3,9 @@ package Pinto::Logger;
 # ABSTRACT: A simple logger
 
 use Moose;
+
 use MooseX::Types::Moose qw(Int);
+use Pinto::Types qw(IO);
 
 use Readonly;
 
@@ -22,6 +24,12 @@ has log_level => (
     lazy_build => 1,
 );
 
+has out => (
+    is       => 'ro',
+    isa      => IO,
+    coerce   => 1,
+    default  => sub { [fileno(STDOUT), '>'] },
+);
 
 #-----------------------------------------------------------------------------
 # Moose roles
@@ -49,9 +57,9 @@ sub _build_log_level {
 # Private functions
 
 sub _logit {
-    my ($message) = @_;
+    my ($self, $message) = @_;
 
-    return print "$message\n";
+    return print { $self->out() } "$message\n";
 }
 
 #-----------------------------------------------------------------------------
@@ -66,7 +74,7 @@ Logs a message to C<STDOUT> if the C<log_level> is 1 or higher.
 sub debug {
     my ($self, $message) = @_;
 
-    _logit($message) if $self->log_level() >= $LOG_LEVEL_DEBUG;
+    $self->_logit($message) if $self->log_level() >= $LOG_LEVEL_DEBUG;
 
     return 1;
 }
@@ -82,7 +90,7 @@ Logs a message to C<STDOUT> if the C<log_level> is 0 or higher.
 sub info {
     my ($self, $message) = @_;
 
-    _logit($message) if $self->log_level() >= $LOG_LEVEL_INFO;
+    $self->_logit($message) if $self->log_level() >= $LOG_LEVEL_INFO;
 
     return 1;
 }
@@ -98,7 +106,7 @@ Logs a message to C<STDERR> if the C<log_level> is -1 or higher.
 sub whine {
     my ($self, $message) = @_;
 
-    warn "$message\n" if $self->log_level() >= $LOG_LEVEL_WARN;
+    $self->_logit($message) if $self->log_level() >= $LOG_LEVEL_WARN;
 
     return 1;
 }
