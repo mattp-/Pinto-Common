@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.015     2011-08-18 10:30:01 America/Los_Angeles
+
     Logger output is now colorized.  You can disable colorization in
     your configuration.
 
