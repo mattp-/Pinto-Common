@@ -81,6 +81,14 @@ has 'store' => (
 );
 
 
+has 'nocolor' => (
+    is       => 'ro',
+    isa      => Bool,
+    key      => 'nocolor',
+    default  => 0,
+);
+
+
 has 'nocommit' => (
     is       => 'ro',
     isa      => Bool,
