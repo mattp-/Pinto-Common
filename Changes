@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.014     2011-08-17 22:56:04 America/Los_Angeles
+
     You can now tell Pinto::Logger where to write to.
     This can be a file, a filehandle, or a scalar ref.
     This is mostly useful for testing purposes.
