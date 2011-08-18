@@ -88,6 +88,7 @@ Logs a message to C<STDOUT> if the C<log_level> is 1 or higher.
 sub debug {
     my ($self, $message) = @_;
 
+    chomp $message;
     $self->_logit($message) if $self->log_level() >= $LOG_LEVEL_DEBUG;
 
     return 1;
@@ -104,6 +105,7 @@ Logs a message to C<STDOUT> if the C<log_level> is 0 or higher.
 sub info {
     my ($self, $message) = @_;
 
+    chomp $message;
     $self->_logit($message) if $self->log_level() >= $LOG_LEVEL_INFO;
 
     return 1;
@@ -120,6 +122,7 @@ Logs a message to C<STDERR> if the C<log_level> is -1 or higher.
 sub whine {
     my ($self, $message) = @_;
 
+    chomp $message;
     $message = _colorize($message, 'bold yellow') if $self->colorize();
     $self->_logit($message) if $self->log_level() >= $LOG_LEVEL_WARN;
 
@@ -137,6 +140,7 @@ Dies with the given message.
 sub fatal {
     my ($self, $message) = @_;
 
+    chomp $message;
     $message = _colorize($message, 'bold red') if $self->colorize();
     die "$message\n";  ## no critic (RequireCarping)
 }
