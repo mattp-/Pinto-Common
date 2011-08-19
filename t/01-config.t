@@ -21,7 +21,7 @@ use Pinto::Config;
     local *Pinto::Config::_build_author = sub{ 'TEST' };
 
     my %default_cases = (
-        local     => 'nowhere',
+        repos     => 'nowhere',
         source    => 'http://cpan.perl.org',
         author    => 'TEST',
         force     => 0,
@@ -32,14 +32,14 @@ use Pinto::Config;
         nocommit  => 0,
     );
 
-    my $cfg = Pinto::Config->new(local => 'nowhere');
+    my $cfg = Pinto::Config->new(repos => 'nowhere');
     while ( my ($method, $expect) = each %default_cases ) {
         my $msg = "Got default value for '$method'";
         is($cfg->$method(), $expect, $msg);
     }
 
    my %custom_cases = (
-        local     => 'nowhere',
+        repos     => 'nowhere',
         source    => 'http://cpan.pair.com',
         author    => 'TEST',
         force     => 1,
@@ -56,18 +56,18 @@ use Pinto::Config;
         is($cfg->$method(), $expect, $msg);
     }
 
-    $cfg = Pinto::Config->new(local => '~/nowhere');
+    $cfg = Pinto::Config->new(repos => '~/nowhere');
     my $home = dir( File::HomeDir->my_home() );
-    is($cfg->local(), $home->file('nowhere'), 'Expanded ~/ to home directory');
+    is($cfg->repos(), $home->file('nowhere'), 'Expanded ~/ to home directory');
 
-    $cfg = Pinto::Config->new(local => 'nowhere', author => 'fooBar');
+    $cfg = Pinto::Config->new(repos => 'nowhere', author => 'fooBar');
     is($cfg->author(), 'FOOBAR', 'Coerced author to ALL CAPS');
 
-    throws_ok { Pinto::Config->new(local => 'nowhere', author => 'foo Bar') }
+    throws_ok { Pinto::Config->new(repos => 'nowhere', author => 'foo Bar') }
         qr/must be alphanumeric/, 'Author cannot have funky characters';
 
-    throws_ok { Pinto::Config->new()->local() }
-        qr/does not pass the type constraint/, 'local parameter is required';
+    throws_ok { Pinto::Config->new()->repos() }
+        qr/does not pass the type constraint/, 'repos parameter is required';
 }
 
 
@@ -88,7 +88,7 @@ use Pinto::Config;
     my $tmp = File::Temp->new();
     my $name = $tmp->filename();
     local $ENV{PERL_PINTO} = $name;
-    my $cfg = Pinto::Config->new(local => 'nowhere');
+    my $cfg = Pinto::Config->new(repos => 'nowhere');
     is($cfg->config_file(), $name, 'Got config_file from ENV');
 }
 
