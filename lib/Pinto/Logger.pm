@@ -8,7 +8,7 @@ use MooseX::Types::Moose qw(Int Bool);
 use Pinto::Types qw(IO);
 
 use Readonly;
-
+use Term::ANSIColor 2.02;
 use namespace::autoclean;
 
 #-----------------------------------------------------------------------------
@@ -153,8 +153,7 @@ sub _colorize {
     return $string if not defined $color;
     return $string if $color eq q{};
 
-    eval { require Term::ANSIColor }
-      or return $string;
+    # TODO: Don't colorize if not going to a terminal?
 
     # $terminator is a purely cosmetic change to make the color end at the end
     # of the line rather than right before the next line. It is here because
