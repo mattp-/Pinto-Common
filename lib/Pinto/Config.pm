@@ -21,10 +21,10 @@ use namespace::autoclean;
 #------------------------------------------------------------------------------
 # Moose attributes
 
-has 'local'   => (
+has 'repos'   => (
     is        => 'ro',
     isa       => Dir,
-    key       => 'local',
+    key       => 'repos',
     required  => 1,
     coerce    => 1,
 );
