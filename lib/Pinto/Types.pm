@@ -5,7 +5,7 @@ package Pinto::Types;
 use strict;
 use warnings;
 
-use MooseX::Types -declare => [ qw( AuthorID URI Dir File IO) ];
+use MooseX::Types -declare => [ qw( AuthorID URI Dir File IO StrOrFileOrURI) ];
 use MooseX::Types::Moose qw( Str ScalarRef ArrayRef FileHandle Object Int);
 
 use URI;
@@ -56,6 +56,11 @@ subtype File, as 'Path::Class::File';
 coerce File,
     from Str,             via { Path::Class::File->new( _expand_tilde($_) ) },
     from ArrayRef,        via { Path::Class::File->new( @{$_} ) };
+
+#-----------------------------------------------------------------------------
+
+subtype StrOrFileOrURI,
+    as Str|File|URI;
 
 #-----------------------------------------------------------------------------
 

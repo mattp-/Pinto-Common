@@ -1,10 +1,10 @@
 {{$NEXT}}
 
-    The "local" configuration paramater is now called "repos".
-
-    Term::ANSIColor is now required, even if you don't use color.
-    I learned from Perl::Critic that optional dependencies can be
-    a real pain in the ass to manage.
+    The Logger and Config classes have been moved back into the
+    Pinto distribution.  Now that they have a more specialized
+    purpose, is no longer necessary to put them in a separate
+    distribution.  So this dist now only contains Pinto::Types
+    and Pinto::Manual.
 
 0.015     2011-08-18 10:30:01 America/Los_Angeles
 
