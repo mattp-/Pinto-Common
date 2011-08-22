@@ -1,19 +1,14 @@
-=pod
+# ABSTRACT: What Pinto is, and how to use it
+# PODNAME: Pinto::Manual
 
-=head1 NAME
+#------------------------------------------------------------------------------
 
-Pinto::Manual - What Pinto is, and how to use it
+# VERSION
+
+#------------------------------------------------------------------------------
 
 =head1 DESCRIPTION
 
 This is yet to be written!
-
-=head1 AUTHOR
-
-Jeffrey Ryan Thalhammer <thaljef@cpan.org>
-
-=head1 COPYRIGHT
-
-Copyright (c) 2011 Imaginative Software Systems
 
 =cut
