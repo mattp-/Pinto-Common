@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+    Added Pinto::Constants, for constant values that are shared
+    by the various pinto-* utilities.
+
 0.017     2011-08-24 00:20:47 America/Los_Angeles
 
     The Logger and Config classes have been moved back into the
