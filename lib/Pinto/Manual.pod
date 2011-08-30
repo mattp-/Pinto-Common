@@ -9,6 +9,88 @@
 
 =head1 DESCRIPTION
 
-This is yet to be written!
+These days, a best practice among Perl developers is to package code
+code into CPAN-style distributions.  Even if the code will never be
+released to the public CPAN repository, packaging your code in the
+CPAN-style allows you to leverage the CPAN tool chain for building and
+testing your code, as well as managing dependencies.
+
+=head1 PINTO AND THE DEVELOPMENT CYCLE
+
+Even though *the* CPAN has been around for many years, the concept of
+using CPAN-like infrastructure for private development is still
+relatively novel.  So for many folks (including me), it isn't
+immediately clear how to incorporate Pinto with the development cycle.
+
+The following describes several usage scenarios for Pinto.  Most are
+based on my actual experience, but some are just theoretical.  If you
+are using Pinto (or some other variety of private CPAN) in other ways,
+please let me know so that I can document it here.
+
+
+=head2 USAGE STRATEGIES
+
+There are three general strategies for using a Pinto repository.  We
+can then identify specific scenarios where one of these strategies can
+be applied.
+
+The first strategy is to use Pinto as a repository for local
+distributions.  These distributions could be private or public, or a
+mix of both.  But the repository contains only the distributions that
+you explicitly add to it.
+
+The second strategy is to use Pinto as snapshot of the public CPAN.
+In this strategy, your repository contains the current version of
+every package indexed on a public CPAN, as-of the time you made the
+snapshot.  You may choose to periodically upate the snapshot.
+
+The third (and probably most useful) strategy is to combine a snapshot
+of the public CPAN with your own hand-picked distributions.  In this
+scenario, your Pinto repository contains all of the CPAN distributions
+plus your local ones, and your local ones always take precedence over
+those you got from the public CPAN.
+
+=head2 A Local Patch
+
+Situation: a local patch of a cpan module
+
+Situation: a big pile of random CPAN modules
+
+Situation: just a my own distributions
+
+Situation: upgrading distributions over time
+
+Situation: sharing distributions across the organization
+
+Situation: application-specific dependencies
+
+Situation: department-wide dependencies
+
+=head2 A Private CPAN
+
+Another scenario is to use Pinto to create a private snapshot of
+the public CPAN.
+
+=head2 Hybrid Usage
+
+=head2 Team Repository
+
+=head2 Project Repository
+
+=head2 Solo Development
+
+=head2 Team Development
+
+=head1 PINTO AND DEPLOYMENT
+
+=head1 PINTO AND VERSION CONTROL SYSTEMS
+
+=head1 PINTO AND OTHER PACKAGING SYSTEMS
+
+=head1 PINTO AND OTHER CPAN TOOLS
+
+=head1 EXTENDING PINTO
+
+=head1 FUTURE PLANS
 
 =cut
