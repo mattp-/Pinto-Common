@@ -9,11 +9,58 @@
 
 =head1 DESCRIPTION
 
+This document is an overview of the L<Pinto> tool suite, and a general
+guide for using L<Pinto> in the real world.  It is a work-in-progress,
+so feel free to send suggestions to the author.
+
+=head1 MOTIVATION
+
 These days, a best practice among Perl developers is to package code
 code into CPAN-style distributions.  Even if the code will never be
-released to the public CPAN repository, packaging your code in the
+released to a public CPAN repository, packaging your code in the
 CPAN-style allows you to leverage the CPAN tool chain for building and
 testing your code, as well as managing dependencies.
+
+Subsequently, modules like L<CPAN::Site>, L<CPAN::Mini>, and
+L<CPAN::Mini::Inject> enable the creation of private CPAN-style
+repositories.  And over the last few years, I've used various
+combinations of those modules to create repositories at several
+organizations.  But they always required some wrapping and/or
+customizing to make them really usable in the development cycle.
+
+I wanted a suite of tools that could work out-of-the-box, and would
+accommodate a fairly wide range of use cases. Hence, L<Pinto> was
+born.
+
+=head1 COMPONENTS OF THE PINTO SUITE
+
+The L<Pinto> suite consists of a core set of libraries and three
+command line utilities.  Each of these utilities ships in a separate
+distribution, so you don't have to install the whole kit if you're
+only going to use a subset of the L<Pinto> suite.  However, you can
+install L<Task::Pinto> if you'd like to get everything in one shot.
+
+=head1 pinto-admin
+
+L<pinto-admin> is a utility for creating and managing a Pinto
+repository.  It supports the core operations of adding local
+distributions, removing packages, and pulling foreign distributions
+from other repositories.
+
+=for stopwords REST-ish
+
+=head2 pinto-server
+
+L<pinto-server> provides a REST-ish web service to interface with your
+Pinto repository.  This allows multiple (possibly remote) developers
+to add or remove distributions to or from a central repository.
+
+=head2 pinto-remote
+
+L<pinto-remote> is a utility for interacting with a remote Pinto
+repository (via L<pinto-server>).  It provides a subset of the
+operations supported by L<pinto-admin>.
+
 
 =head1 PINTO AND THE DEVELOPMENT CYCLE
 
@@ -22,19 +69,18 @@ using CPAN-like infrastructure for private development is still
 relatively novel.  So for many folks (including me), it isn't
 immediately clear how to incorporate Pinto with the development cycle.
 
-The following describes several usage scenarios for Pinto.  Most are
-based on my actual experience, but some are just theoretical.  If you
-are using Pinto (or some other variety of private CPAN) in other ways,
+The following describes several usage scenarios for Pinto.  Some come
+from my own experience, but some are just theoretical.  If you are
+using Pinto (or some other variety of private CPAN) in other ways,
 please let me know so that I can document it here.
-
 
 =head2 USAGE STRATEGIES
 
-There are three general strategies for using a Pinto repository.  We
-can then identify specific scenarios where one of these strategies can
-be applied.
+There are three general strategies for using a Pinto repository.  From
+these strategies, I've identified several specific scenarios where
+they can be applied.
 
-The first strategy is to use Pinto as a repository for local
+The first strategy is to use Pinto purely as a repository for local
 distributions.  These distributions could be private or public, or a
 mix of both.  But the repository contains only the distributions that
 you explicitly add to it.
@@ -42,40 +88,31 @@ you explicitly add to it.
 The second strategy is to use Pinto as snapshot of the public CPAN.
 In this strategy, your repository contains the current version of
 every package indexed on a public CPAN, as-of the time you made the
-snapshot.  You may choose to periodically upate the snapshot.
+snapshot.  You may choose to periodically update the snapshot.
 
 The third (and probably most useful) strategy is to combine a snapshot
-of the public CPAN with your own hand-picked distributions.  In this
+of the public CPAN with your own local distributions.  In this
 scenario, your Pinto repository contains all of the CPAN distributions
 plus your local ones, and your local ones always take precedence over
 those you got from the public CPAN.
 
-=head2 A Local Patch
+=over 4
 
-Situation: a local patch of a cpan module
+=item A Local Patch of a Public CPAN Module
 
-Situation: a big pile of random CPAN modules
+=item A Big Pile of Random CPAN Modules
 
-Situation: just a my own distributions
+=item Just My Own Private Distributions
 
-Situation: upgrading distributions over time
+=item Upgrading CPAN Dependencies Over Time
 
-Situation: sharing distributions across the organization
+=item Sharing Distributions Across the Organization
 
-Situation: application-specific dependencies
+=item Managing System-Wide Dependencies
 
-Situation: department-wide dependencies
+=item Managing Application-Specific Dependencies
 
-=head2 A Private CPAN
-
-Another scenario is to use Pinto to create a private snapshot of
-the public CPAN.
-
-=head2 Hybrid Usage
-
-=head2 Team Repository
-
-=head2 Project Repository
+=back
 
 =head2 Solo Development
 
@@ -84,6 +121,20 @@ the public CPAN.
 =head1 PINTO AND DEPLOYMENT
 
 =head1 PINTO AND VERSION CONTROL SYSTEMS
+
+One of the major motivations behind Pinto was to integrate with
+version control systems (VCS).  Changing dependencies are a frequent
+cause of application failure (either in development or, gasp, in
+production).  So it is natural to want a mechanism to rollback your
+dependencies to a "known-good-state".  This is a natural fit for VCS.
+
+L<Pinto> integrates with VCS by committing (and optionally tagging)
+changes to your repository.  L<Pinto> does not provide any direct
+mechanism for branching/merging/reverting your VCS.  Nor does L<Pinto>
+know which revision of your repository is the "right" one.  It is
+still up to you to figure that out.  But since everything L<Pinto>
+does is always in your VCS, you should have everything you need to
+solve those problems.
 
 =head1 PINTO AND OTHER PACKAGING SYSTEMS
 
