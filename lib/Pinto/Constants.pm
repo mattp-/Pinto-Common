@@ -1,6 +1,6 @@
 package Pinto::Constants;
 
-# ABSTRACT: Constants used across the pinto-* utilities
+# ABSTRACT: Constants used across the Pinto utilities
 
 use strict;
 use warnings;
@@ -25,9 +25,9 @@ Readonly our %EXPORT_TAGS => ( list => [ qw ( @PINTO_LIST_TYPES
 
 #------------------------------------------------------------------------------
 
-Readonly my @PINTO_LIST_TYPES => qw(local foreign conflicts all);
-Readonly my $PINTO_LIST_TYPES_STRING => join ' | ', sort @PINTO_LIST_TYPES;
-Readonly my $PINTO_DEFAULT_LIST_TYPE => 'all';
+Readonly our @PINTO_LIST_TYPES => qw(local foreign conflicts all);
+Readonly our $PINTO_LIST_TYPES_STRING => join ' | ', sort @PINTO_LIST_TYPES;
+Readonly our $PINTO_DEFAULT_LIST_TYPE => 'all';
 
 #------------------------------------------------------------------------------
 1;
