@@ -1,7 +1,7 @@
 package TestClass;
 
 use Moose;
-use Pinto::Types qw(File Dir URI IO AuthorID);
+use Pinto::Types qw(File Dir URI IO AuthorID Vers);
 
 #-----------------------------------------------------------------------------
 
@@ -32,6 +32,12 @@ has io  => (
 has author => (
     is  => 'rw',
     isa => AuthorID,
+    coerce => 1,
+);
+
+has version => (
+    is  => 'rw',
+    isa => Vers,
     coerce => 1,
 );
 
