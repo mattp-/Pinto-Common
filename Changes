@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+    Added the Vers type (for version objects).
+
 0.018     2011-08-30 01:13:35 America/Los_Angeles
 
     Added Pinto::Constants, for constant values that are shared
