@@ -5,7 +5,7 @@ package Pinto::Types;
 use strict;
 use warnings;
 
-use MooseX::Types -declare => [ qw( AuthorID URI Dir File IO Vers) ];
+use MooseX::Types -declare => [ qw( AuthorID Uri Dir File IO Vers) ];
 use MooseX::Types::Moose qw( Str Num ScalarRef ArrayRef FileHandle Object Int);
 
 use URI;
@@ -47,11 +47,11 @@ coerce Vers,
 
 #-----------------------------------------------------------------------------
 
-class_type URI, {class => 'URI'};
+class_type Uri, {class => 'URI'};
 
-coerce URI,
+coerce Uri,
     from Str,
-    via { 'URI'->new($_) };
+    via { URI->new($_) };
 
 #-----------------------------------------------------------------------------
 
