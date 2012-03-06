@@ -13,26 +13,41 @@ This document is an overview of the L<Pinto> tool suite, and a general
 guide for using L<Pinto> in the real world.  It is a work-in-progress,
 so feel free to send suggestions to the author.
 
-=head1 MOTIVATION
+=head1 GOALS
 
-These days, a best practice among Perl developers is to package code
-code into CPAN-style distributions.  Even if the code will never be
-released to a public CPAN repository, packaging your code in the
-CPAN-style allows you to leverage the CPAN tool chain for building and
-testing your code, as well as managing dependencies.
+Pinto has two primary goals.  First, Pinto seeks to address the
+problem of instability in the CPAN mirrors.  Distributions are
+constantly added and removed from the CPAN, so if you use it to build
+a system or application, you may not get the same result twice.
+Second, Pinto seeks to encourage developers to use the CPAN toolchain
+for building, testing, and dependency managment of their own software,
+even if they never plan to release it to the CPAN.
 
-Subsequently, modules like L<CPAN::Site>, L<CPAN::Mini>, and
-L<CPAN::Mini::Inject> enable the creation of private CPAN-style
-repositories.  And over the last few years, I've used various
-combinations of those modules to create repositories at several
-organizations.  But they always required some wrapping and/or
-customizing to make them really usable in the development cycle.
+Pinto accomplishes these goals by providing a suite of tools for
+creating and managing private CPAN-like repositories.  These
+repositories can contain any distributions you like, and can be used
+with the standard CPAN toolchain.
 
-I wanted a suite of tools that could work out-of-the-box, and would
+=head1 PRIOR ART
+
+The idea of a private CPAN is not new.  Randal Schwartz discussed the
+idea back in XXXX.  Subsequently, modules like L<CPAN::Site> and
+L<CPAN::Mini> were released.  More recently, L<OrePAN> and L<MyCPAN>
+have emerged as well.
+
+Over the last few years, I acutally used various combinations of those
+modules to create private CPAN repositories at several organizations.
+But they always required some wrapping and/or glue to make them usable
+in the development cycle.  And none of them seemed to be designed for
+extension.
+
+I wanted a suite of tools that would work out-of-the-box, and would
 accommodate a fairly wide range of use cases. Hence, L<Pinto> was
 born.
 
-=head1 COMPONENTS OF THE PINTO SUITE
+=head1
+
+=head1 COMPONENTS
 
 The L<Pinto> suite consists of a core set of libraries and three
 command line utilities.  Each of these utilities ships in a separate
@@ -43,17 +58,15 @@ install L<Task::Pinto> if you'd like to get everything in one shot.
 =head1 pinto-admin
 
 L<pinto-admin> is a utility for creating and managing a Pinto
-repository.  It supports the core operations of adding local
-distributions, removing packages, and pulling foreign distributions
-from other repositories.
-
-=for stopwords REST-ish
+repository.  It supports the core operations of adding and removing
+local distributions, as well as mirroring and importing foreign
+distributions from other repositories.
 
 =head2 pinto-server
 
-L<pinto-server> provides a REST-ish web service to interface with your
-Pinto repository.  This allows multiple (possibly remote) developers
-to add or remove distributions to or from a central repository.
+L<pinto-server> provides a web service interface to your Pinto
+repository.  This allows multiple (possibly remote) developers to add
+or remove distributions to or from a central repository.
 
 =head2 pinto-remote
 
@@ -61,6 +74,79 @@ L<pinto-remote> is a utility for interacting with a remote Pinto
 repository (via L<pinto-server>).  It provides a subset of the
 operations supported by L<pinto-admin>.
 
+
+=head1 USE CASES
+
+All use cases revolve around the basic functions of adding and
+removing distributions from the repository, but there are differences
+in how you select and obtain those distributions.  I have used Pinto
+(or can imagine using it) in the following scenarios:
+
+=head1 SNAPSHOT OF CPAN MIRROR
+
+You can use Pinto to create a stable snapshot of a CPAN mirror.  This
+can easily be done with the C<mirror> command.
+
+  $> pinto-admin -r /my/cpan create
+  $> pinto-admin -r /my/cpan mirror
+
+This creates a repository that contains the latest versions of all
+packages on the CPAN (this may take several hours).  Now, when you
+point your cpan client (e.g L<cpan>, L<cpanp>, or L<cpanm>) at
+F</my/cpan> you can now build your dependency stack and get the same
+result over and over.
+
+=head1 UPGRADING A SNAPSHOT
+
+Any time you want to upgrade to the latest version of all your
+dependencies, you can run the mirror command again (it will be much
+faster now).  But let's suppose that the new C<Foo-2.0> package breaks
+your application.  You can remove its distribution by using the
+C<remove> command like so:
+
+  $> pinto-admin -r /my/cpan remove A/AU/AUTHOR/Foo-2.0.tar.gz
+
+Now, when you build your dependency stack, you'll get C<Foo-1.0> (or
+whatever version you had before), and all your other dependencies will
+be the latest ones available.
+
+=head1 PATCHING A CPAN DISTRIBUTION
+
+Let's suppose that your application depends on L<Plack>, and you've
+found a critical bug in it.  For whatever reason, the author of Plack
+can't or won't fix the bug and you decide to patch the code yourself.
+So after you've downloaded the distribution (or perhaps made a copy of
+the one in your repostory), patched the code and packaged it back up,
+you can add it to your repository with the C<add> command:
+
+  $> pinto-admin -r /my/cpan add ~/tmp/Plack-0.89-PATCHED.tar.gz
+
+This is called adding a "local" distribution.  The packages in a local
+distribution are always considered newer than the same package in a
+"foreign" distribution.  So when clients requiest the "Plack" package
+from your repository, they will always get your patched version, even
+if the repository contains a foreign version with a higher version
+number.
+
+Eventually, the author of Plack finally fixes that bug and releases a
+new distribution.  You can pull that distribution into your repository
+(and the latest version of all the other distributions) by running the
+C<mirror> command.  Finally, you can remove your patched version with
+the C<remove> command:
+
+  $> pinto-admin -r /my/cpan remove Plack-0.89-PATCHED.tar.gz
+
+Clients requesting the "Plack" package will no longer get your patched
+version, but will get the latest version that was pulled from the
+CPAN instead.
+
+=head1 PRIVATE REPOSITORY
+
+You can also use Pinto to create a repository that 
+
+=head1 PROJECT REPOSITORY
+
+=head1 HYBRID REPOSITORY
 
 =head1 PINTO AND THE DEVELOPMENT CYCLE
 
