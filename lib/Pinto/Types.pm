@@ -5,7 +5,7 @@ package Pinto::Types;
 use strict;
 use warnings;
 
-use MooseX::Types -declare => [ qw( AuthorID Uri Dir File IO Vers) ];
+use MooseX::Types -declare => [ qw( AuthorID StackName Uri Dir File IO Vers) ];
 use MooseX::Types::Moose qw( Str Num ScalarRef ArrayRef FileHandle Object Int);
 
 use URI;
@@ -33,6 +33,18 @@ subtype AuthorID,
 coerce AuthorID,
     from Str,
     via  { uc $_ };
+
+#-----------------------------------------------------------------------------
+
+subtype StackName,
+    as Str,
+    where { not m/[^a-z0-9-_]/x },
+    message { "The stack name ($_) must be alphanumeric" };
+
+coerce StackName,
+    from Str,
+    via { lc $_ };
+
 #-----------------------------------------------------------------------------
 
 class_type Vers, {class => 'version'};

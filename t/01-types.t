@@ -4,7 +4,8 @@
 use strict;
 use warnings;
 
-use Test::More (tests => 7);
+use Test::More;
+use Test::Exception;
 
 use Path::Class;
 use FindBin qw($Bin);
@@ -27,6 +28,11 @@ is(ref $t->uri(), 'URI::http', 'Coerced URI from string');
 
 $t->author('hello');
 is($t->author, 'HELLO', 'Coerced Author ID from string');
+throws_ok {$t->author('foo bar!') } qr/alphanumeric/, 'AuthorID type constraint';
+
+$t->stack('ProD');
+is($t->stack, 'prod', 'Coerced stack name from string');
+throws_ok {$t->stack('foo bar!') } qr/alphanumeric/, 'StackName type constraint';
 
 $t->version(5.1);
 is(ref $t->version, 'version', 'Coerced version from number');
@@ -39,4 +45,4 @@ is(ref $t->version, 'version', 'Coerced version from v-string');
 
 #-----------------------------------------------------------------------------
 
-
+done_testing();
