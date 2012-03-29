@@ -1,11 +1,12 @@
-package Pinto::Interface::Authorable;
+# ABSTRACT: Something that has an author id
 
-# ABSTRACT: Something that has an author
+package Pinto::Interface::Authorable;
 
 use Moose::Role;
 
+use Carp;
+
 use Pinto::Types qw(AuthorID);
-use Pinto::Exceptions qw(throw_fatal);
 
 #------------------------------------------------------------------------------
 
@@ -17,16 +18,26 @@ has author => (
     is         => 'ro',
     isa        => AuthorID,
     coerce     => 1,
-    lazy_build => 1,
+    lazy       => 1,
+    builder    => '_build_author',
 );
 
 #------------------------------------------------------------------------------
 
-sub _build_author {                                  ## no critic (FinalReturn)
+with qw(Pinto::Interface::PauseConfig);
+
+#------------------------------------------------------------------------------
+
+sub _build_author {
+    my ($self) = @_;
+
+    # Try looking in their .pause file
+    my $pause_id = $self->pausecfg->{user};
+    return $pause_id if $pause_id;
 
     # Look at typical environment variables
-    for my $var ( qw(USERNAME USER LOGNAME) ) {
-        return uc $ENV{$var} if $ENV{$var};
+    for my $var ( qw(USER USERNAME LOGNAME) ) {
+        return $ENV{$var} if $ENV{$var};
     }
 
     # Try using pwent.  Probably only works on *nix
@@ -35,7 +46,7 @@ sub _build_author {                                  ## no critic (FinalReturn)
     }
 
     # Otherwise, we are hosed!
-    throw_fatal 'Unable to determine your user name';
+    confess 'Unable to determine your username';
 
 }
 
