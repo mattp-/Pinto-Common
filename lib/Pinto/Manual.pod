@@ -19,23 +19,24 @@ Pinto has two primary goals.  First, Pinto seeks to address the
 problem of instability in the CPAN mirrors.  Distributions are
 constantly added and removed from the CPAN, so if you use it to build
 a system or application, you may not get the same result twice.
-Second, Pinto seeks to encourage developers to use the CPAN toolchain
-for building, testing, and dependency managment of their own software,
-even if they never plan to release it to the CPAN.
+Second, Pinto seeks to enable developers to use the CPAN toolchain for
+building, testing, and dependency management of their own local
+software, even if they never plan to release it to the CPAN.
 
 Pinto accomplishes these goals by providing a suite of tools for
-creating and managing private CPAN-like repositories.  These
+creating and managing your own CPAN-like repositories.  These
 repositories can contain any distributions you like, and can be used
 with the standard CPAN toolchain.
 
 =head1 PRIOR ART
 
-The idea of a private CPAN is not new.  Randal Schwartz discussed the
-idea back in XXXX.  Subsequently, modules like L<CPAN::Site> and
-L<CPAN::Mini> were released.  More recently, L<OrePAN> and L<MyCPAN>
-have emerged as well.
+The idea of a private CPAN is not new.  Randal Schwartz presented
+L<the idea|http://www.stonehenge.com/merlyn/LinuxMag/col42.html> back
+in 2002.  Subsequently, modules like L<CPAN::Site> and L<CPAN::Mini>
+were released.  More recently, L<OrePAN> and L<MyCPAN::App::DPAN> have
+emerged as well.
 
-Over the last few years, I acutally used various combinations of those
+Over the last few years, I personally used various combinations of those
 modules to create private CPAN repositories at several organizations.
 But they always required some wrapping and/or glue to make them usable
 in the development cycle.  And none of them seemed to be designed for
@@ -65,8 +66,10 @@ distributions from other repositories.
 =head2 pinto-server
 
 L<pinto-server> provides a web service interface to your Pinto
-repository.  This allows multiple (possibly remote) developers to add
-or remove distributions to or from a central repository.
+repository.  This allows multiple (possibly remote) developers to
+manage a central repository.  L<pinto-server> also functions as the
+backend server to installer clients like L<cpan>, L<cpanp>, and
+L<cpanm>.
 
 =head2 pinto-remote
 
@@ -82,7 +85,7 @@ removing distributions from the repository, but there are differences
 in how you select and obtain those distributions.  I have used Pinto
 (or can imagine using it) in the following scenarios:
 
-=head1 SNAPSHOT OF CPAN MIRROR
+=head2 SNAPSHOT OF CPAN MIRROR
 
 You can use Pinto to create a stable snapshot of a CPAN mirror.  This
 can easily be done with the C<mirror> command.
@@ -91,12 +94,12 @@ can easily be done with the C<mirror> command.
   $> pinto-admin -r /my/cpan mirror
 
 This creates a repository that contains the latest versions of all
-packages on the CPAN (this may take several hours).  Now, when you
-point your cpan client (e.g L<cpan>, L<cpanp>, or L<cpanm>) at
-F</my/cpan> you can now build your dependency stack and get the same
-result over and over.
+packages on the CPAN (this may take several hours the first time you
+do it).  Now, when you point your installer client at F</my/cpan> you
+can now build your dependency stack and get the same result over and
+over.
 
-=head1 UPGRADING A SNAPSHOT
+=head2 UPGRADING THE ENTIRE SNAPSHOT
 
 Any time you want to upgrade to the latest version of all your
 dependencies, you can run the mirror command again (it will be much
@@ -110,20 +113,47 @@ Now, when you build your dependency stack, you'll get C<Foo-1.0> (or
 whatever version you had before), and all your other dependencies will
 be the latest ones available.
 
-=head1 PATCHING A CPAN DISTRIBUTION
+=head2 UPGRADING SELECTED PACKAGES
+
+Suppose you just want to upgrade package L<Bar> to version 3.0, which
+was just released to the CPAN.  You can do that with the C<import>
+command like this:
+
+  $> pinto-admin -r /my/cpan import Bar-3.0
+
+This will bring version 3.0 of package L<Bar> into your repository,
+plus any additional dependencies that it requires.
+
+=head2 ADDING YOUR OWN DISTRIBUTIONS
+
+If you package your application into one or more CPAN-style
+distributions, then you can also put your own code in the L<Pinto>
+repository with the C<add> command:
+
+  $> pinto-admin -r /my/cpan add /path/to/My-Dist-1.4.tar.gz
+
+L<Pinto> will index your distribution (just like PAUSE) and add it to
+the repository.  By default, L<Pinto> will also C<import> all the
+dependencies that you've declared in your distribution.
+
+Once again, you can point your installer client at F</my/cpan> to
+install your distribution, and it will unwind and install all the
+dependencies for you, using the L<Pinto> repository as the source.
+
+=head2 PATCHING A CPAN DISTRIBUTION
 
 Let's suppose that your application depends on L<Plack>, and you've
 found a critical bug in it.  For whatever reason, the author of Plack
 can't or won't fix the bug and you decide to patch the code yourself.
 So after you've downloaded the distribution (or perhaps made a copy of
-the one in your repostory), patched the code and packaged it back up,
+the one in your repository), patched the code and packaged it back up,
 you can add it to your repository with the C<add> command:
 
   $> pinto-admin -r /my/cpan add ~/tmp/Plack-0.89-PATCHED.tar.gz
 
 This is called adding a "local" distribution.  The packages in a local
 distribution are always considered newer than the same package in a
-"foreign" distribution.  So when clients requiest the "Plack" package
+"foreign" distribution.  So when clients request the "Plack" package
 from your repository, they will always get your patched version, even
 if the repository contains a foreign version with a higher version
 number.
@@ -137,16 +167,8 @@ the C<remove> command:
   $> pinto-admin -r /my/cpan remove Plack-0.89-PATCHED.tar.gz
 
 Clients requesting the "Plack" package will no longer get your patched
-version, but will get the latest version that was pulled from the
-CPAN instead.
-
-=head1 PRIVATE REPOSITORY
-
-You can also use Pinto to create a repository that 
-
-=head1 PROJECT REPOSITORY
-
-=head1 HYBRID REPOSITORY
+version, but will get the latest version that was pulled from the CPAN
+instead.
 
 =head1 PINTO AND THE DEVELOPMENT CYCLE
 
@@ -162,47 +184,39 @@ please let me know so that I can document it here.
 
 =head2 USAGE STRATEGIES
 
-There are three general strategies for using a Pinto repository.  From
-these strategies, I've identified several specific scenarios where
-they can be applied.
+Given the above use cases, I see four basic strategies for using
+L<Pinto>, although I'm sure folks will probably come up with others...
+
+=head3 Local Distributions Only
 
 The first strategy is to use Pinto purely as a repository for local
 distributions.  These distributions could be private or public, or a
 mix of both.  But the repository contains only the distributions that
 you explicitly add to it.
 
+=head3 Snapshots Of The Public CPAN
+
 The second strategy is to use Pinto as snapshot of the public CPAN.
 In this strategy, your repository contains the current version of
 every package indexed on a public CPAN, as-of the time you made the
 snapshot.  You may choose to periodically update the snapshot.
 
-The third (and probably most useful) strategy is to combine a snapshot
-of the public CPAN with your own local distributions.  In this
-scenario, your Pinto repository contains all of the CPAN distributions
-plus your local ones, and your local ones always take precedence over
-those you got from the public CPAN.
+=head3 CPAN Plus Local Distributions
 
-=over 4
+The third strategy is to combine a snapshot of the public CPAN with
+your own local distributions.  In this scenario, your Pinto repository
+contains all of the CPAN distributions plus your local ones, and your
+local ones always take precedence over those you got from the public
+CPAN.
 
-=item A Local Patch of a Public CPAN Module
+=head3 Project-specific Repository
 
-=item A Big Pile of Random CPAN Modules
+The fourth (and probably most useful) strategy is to start with an
+empty Pinto repository and organically C<add> your local distributions
+and C<import> their dependencies as the project evolves over time.  This
+keeps your repository small and focused.
 
-=item Just My Own Private Distributions
-
-=item Upgrading CPAN Dependencies Over Time
-
-=item Sharing Distributions Across the Organization
-
-=item Managing System-Wide Dependencies
-
-=item Managing Application-Specific Dependencies
-
-=back
-
-=head2 Solo Development
-
-=head2 Team Development
+=head1 PINTO AND TEAMS
 
 =head1 PINTO AND DEPLOYMENT
 
