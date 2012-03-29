@@ -35,6 +35,8 @@ Readonly our @EXPORT_OK => qw(
 
     $PINTO_DEFAULT_SERVER_PORT
     $PINTO_DEFAULT_SERVER_HOST
+
+    $PINTO_REPOSITORY_ROOT_ENV_VAR
 );
 
 #------------------------------------------------------------------------------
@@ -77,6 +79,10 @@ Readonly our $PINTO_ACTION_TYPE_VERIFY  => 'Verify';
 
 Readonly our $PINTO_DEFAULT_SERVER_PORT  => '3111';
 Readonly our $PINTO_DEFAULT_SERVER_HOST  => 'localhost';
+
+#------------------------------------------------------------------------------
+
+Readonly our $PINTO_REPOSITORY_ROOT_ENV_VAR  => 'PINTO_REPOSITORY_ROOT';
 
 #------------------------------------------------------------------------------
 1;
