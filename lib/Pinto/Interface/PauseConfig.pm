@@ -69,8 +69,8 @@ sub _build_pausecfg {
     # (maybe this should be part of the CPAN::Uploader api?)
 
     while (<$fh>) {
-        next if /^\s*(?:#.*)?$/;
-        my ($k, $v) = /^\s*(\w+)\s+(.+)$/;
+        next if /^ \s* (?: [#].*)? $/x;
+        my ($k, $v) = /^ \s* (\w+) \s+ (.+) $/x;
         $cfg->{$k} = $v;
     }
 
@@ -79,5 +79,11 @@ sub _build_pausecfg {
 
 #------------------------------------------------------------------------------
 1;
+
+=pod
+
+=for stopwords pauserc
+
+=cut
 
 __END__

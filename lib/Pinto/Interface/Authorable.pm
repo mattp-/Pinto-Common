@@ -36,8 +36,8 @@ sub _build_author {
     return $pause_id if $pause_id;
 
     # Look at typical environment variables
-    for my $var ( qw(USER USERNAME LOGNAME) ) {
-        return $ENV{$var} if $ENV{$var};
+    for my $env_var ( qw(USER USERNAME LOGNAME) ) {
+        return $ENV{$env_var} if $ENV{$env_var};
     }
 
     # Try using pwent.  Probably only works on *nix
