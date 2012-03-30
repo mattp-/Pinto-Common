@@ -46,7 +46,6 @@ sub as_post_data {
 
     my @post_data;
     for my $attribute ( $self->meta->get_all_attributes ) {
-            $DB::single = 1;
 
         next if not $attribute->does( __PACKAGE__ );
 
