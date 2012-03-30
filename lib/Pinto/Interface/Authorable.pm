@@ -14,17 +14,18 @@ use Pinto::Types qw(AuthorID);
 
 #------------------------------------------------------------------------------
 
+with qw(Pinto::Interface::PauseConfig Pinto::Meta::Attribute::Trait::Postable);
+
+#------------------------------------------------------------------------------
+
 has author => (
     is         => 'ro',
     isa        => AuthorID,
     coerce     => 1,
     lazy       => 1,
     builder    => '_build_author',
+    traits     => [ qw(Postable) ],
 );
-
-#------------------------------------------------------------------------------
-
-with qw(Pinto::Interface::PauseConfig);
 
 #------------------------------------------------------------------------------
 
