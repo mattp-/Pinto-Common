@@ -23,13 +23,16 @@ has package => (
     is       => 'ro',
     isa      => Str,
     required => 1,
+    traits   => [ qw(Postable) ],
 );
 
 has version => (
     is        => 'ro',
     isa       => Vers,
-    predicate => 'has_version',
     coerce    => 1,
+    predicate => 'has_version',
+    traits    => [ qw(Postable) ],
+    post_via  => sub { $_[0]->version->stringify },
 );
 
 #------------------------------------------------------------------------------

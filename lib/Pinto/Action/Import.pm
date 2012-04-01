@@ -27,14 +27,18 @@ has package_name => (
     is       => 'ro',
     isa      => Str,
     required => 1,
+    traits   => [ qw(Postable) ],
 );
 
 
 has minimum_version => (
-    is      => 'ro',
-    isa     => Vers,
-    default => sub { version->parse(0) },
-    coerce  => 1,
+    is       => 'ro',
+    isa      => Vers,
+    coerce   => 1,
+    default  => sub { version->parse(0) },
+    traits   => [ qw(Postable) ],
+    post_via => sub { $_[0]->minimum_version->stringify },
+
 );
 
 
@@ -42,6 +46,7 @@ has norecurse => (
    is      => 'ro',
    isa     => Bool,
    default => 0,
+   traits  => [ qw(Postable) ],
 );
 
 #------------------------------------------------------------------------------

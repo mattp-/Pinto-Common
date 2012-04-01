@@ -33,31 +33,35 @@ has out => (
 has format => (
     is      => 'ro',
     isa     => Str,
-    default => '',
+    traits  => [ qw(Postable) ],
 );
 
 
 has pinned => (
     is     => 'ro',
     isa    => Bool,
+    traits => [ qw(Postable) ],
 );
 
 
 has index => (
     is     => 'ro',
     isa    => Str,
+    traits => [ qw(Postable) ],
 );
 
 
 has packages => (
     is     => 'ro',
     isa    => Str,
+    traits => [ qw(Postable) ],
 );
 
 
 has distributions => (
     is     => 'ro',
     isa    => Str,
+    traits => [ qw(Postable) ],
 );
 
 

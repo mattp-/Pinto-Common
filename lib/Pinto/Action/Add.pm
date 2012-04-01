@@ -31,6 +31,8 @@ has archive => (
     isa      => File,
     required => 1,
     coerce   => 1,
+    traits   => [ qw(Postable) ],
+    post_via => sub { [ $_[0]->archive->stringify ] },
 );
 
 
@@ -38,13 +40,15 @@ has norecurse => (
    is      => 'ro',
    isa     => Bool,
    default => 0,
+   traits  => [ qw(Postable) ],
 );
 
 
 has extractor => (
-    is         => 'ro',
-    isa        => 'Pinto::PackageExtractor',
-    lazy_build => 1,
+    is      => 'ro',
+    isa     => 'Pinto::PackageExtractor',
+    builder => '_build_extractor'
+    lazy    => 1,
 );
 
 
