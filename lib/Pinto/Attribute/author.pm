@@ -1,6 +1,6 @@
-# ABSTRACT: Something that has an author id
+# ABSTRACT: Something that has an author id attriubte
 
-package Pinto::Interface::Authorable;
+package Pinto::Attribute::author;
 
 use Moose::Role;
 
@@ -14,7 +14,8 @@ use Pinto::Types qw(AuthorID);
 
 #------------------------------------------------------------------------------
 
-with qw(Pinto::Interface::PauseConfig Pinto::Meta::Attribute::Trait::Postable);
+with qw( Pinto::Attribute::pausecfg
+         Pinto::Meta::Attribute::Trait::Postable );
 
 #------------------------------------------------------------------------------
 
