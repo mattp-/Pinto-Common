@@ -25,7 +25,7 @@ has archive  => (
     coerce   => 1,
     required => 1,
     traits   => [ qw(Postable) ],
-    post_via => sub { [ $_[0]->archive->strigify ] },
+    post_via => sub { [ $_[0]->archive->stringify ] },
 );
 
 #------------------------------------------------------------------------------
