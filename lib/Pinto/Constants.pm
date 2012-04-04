@@ -57,10 +57,10 @@ Readonly our $PINTO_SERVER_TEST_ROOT =>
 Readonly our $PINTO_SERVER_RESPONSE_LINE_PREFIX => 'SERVER: ';
 
 Readonly our $PINTO_SERVER_RESPONSE_PROLOGUE =>
-    "$PINTO_SERVER_RESPONSE_LINE_PREFIX Protocol: 0.01";
+    "${PINTO_SERVER_RESPONSE_LINE_PREFIX}Protocol: 0.01";
 
 Readonly our $PINTO_SERVER_RESPONSE_EPILOGUE =>
-    "$PINTO_SERVER_RESPONSE_LINE_PREFIX Status: ok";
+    "${PINTO_SERVER_RESPONSE_LINE_PREFIX}Status: ok";
 
 #------------------------------------------------------------------------------
 
