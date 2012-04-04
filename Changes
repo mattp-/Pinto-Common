@@ -2,8 +2,8 @@
 
     Revised the Pinto::Manual.  This is still a work in progress.
 
-    Now includes the Pinto::Interface::Authorable role, which is used
-    across several Pinto distributions.
+    This distribution now contains several Roles and other
+    bits that are shared by both Pinto and Pinto::Remote.
 
 0.020     2011-12-02 03:01:01 America/Los_Angeles
 
