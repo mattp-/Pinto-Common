@@ -1,4 +1,4 @@
-# ABSTRACT: Something that has an author id attriubte
+# ABSTRACT: Something that has an author id attribute
 
 package Pinto::Attribute::author;
 

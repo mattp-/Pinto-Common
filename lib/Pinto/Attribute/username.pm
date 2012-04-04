@@ -1,4 +1,4 @@
-# ABSTRACT: Something that has a username attriubte
+# ABSTRACT: Something that has a username attribute
 
 package Pinto::Attribute::username;
 

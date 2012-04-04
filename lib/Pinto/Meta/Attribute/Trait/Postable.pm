@@ -1,4 +1,4 @@
-# ABSTRACT: Attribute trait to mark them as postable
+# ABSTRACT: Attribute trait to mark them as something to POST
 
 package Pinto::Meta::Attribute::Trait::Postable;
 
@@ -28,7 +28,7 @@ has post_as => (
 
 =attr post_via => CODEREF
 
-Specify an alternative subroutine for transforming the attribute
+Specify an alternative subroutine for transforming the attribute value
 before posting it.  If not specified, the posted value will be the
 same as the attribute value.
 
@@ -40,6 +40,15 @@ has post_via => (
 );
 
 #-----------------------------------------------------------------------------
+
+=method as_post_data()
+
+Returns an array reference containing the names => values of each
+C<Postable> attribute of this object.  This array reference is
+suitable for passing to the C<POST> function in
+L<HTTP::Request::Common> or the C<post> method of L<LWP::UserAgent>.
+
+=cut
 
 sub as_post_data {
     my ($self) = @_;
