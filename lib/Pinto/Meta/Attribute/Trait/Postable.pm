@@ -1,4 +1,4 @@
-# ABSTRACT: Attribute trait to mark them as something to POST
+# ABSTRACT: Trait for marking attributes as something to POST
 
 package Pinto::Meta::Attribute::Trait::Postable;
 
@@ -71,11 +71,12 @@ sub as_post_data {
 }
 
 #-----------------------------------------------------------------------------
+## no critic qw(ProhibitMultiplePackages)
 
-package # hide
+package # hide from PAUSE
     Moose::Meta::Attribute::Custom::Trait::Postable;
 
-sub register_implementation { 'Pinto::Meta::Attribute::Trait::Postable' }
+sub register_implementation {return 'Pinto::Meta::Attribute::Trait::Postable'}
 
 #-----------------------------------------------------------------------------
 1;
