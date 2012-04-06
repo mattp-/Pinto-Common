@@ -14,7 +14,8 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Attribute::out
+with qw( Pinto::Role::Interface::Action
+         Pinto::Role::Attribute::out
          Pinto::Meta::Attribute::Trait::Postable );
 
 #------------------------------------------------------------------------------

@@ -12,7 +12,8 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Attribute::path
+with qw( Pinto::Role::Interface::Action
+         Pinto::Role::Attribute::path
          Pinto::Role::Attribute::author );
 
 #------------------------------------------------------------------------------

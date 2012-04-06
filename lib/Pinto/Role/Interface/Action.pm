@@ -1,6 +1,6 @@
-# ABSTRACT: Interface for Action::Pin
+# ABSTRACT: Base interface for all Actions
 
-package Pinto::Role::Interface::Action::Pin;
+package Pinto::Role::Interface::Action;
 
 use Moose::Role;
 
@@ -12,9 +12,7 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Interface::Action
-         Pinto::Role::Attribute::package
-         Pinto::Role::Attribute::version );
+requires qw(execute);
 
 #------------------------------------------------------------------------------
 

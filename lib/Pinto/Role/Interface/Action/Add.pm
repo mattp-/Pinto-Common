@@ -12,7 +12,8 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Attribute::author
+with qw( Pinto::Role::Interface::Action
+         Pinto::Role::Attribute::author
          Pinto::Role::Attribute::archive
          Pinto::Role::Attribute::norecurse );
 
