@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::Clean
 
-package Pinto::Interface::Action::Clean;
+package Pinto::Role::Interface::Action::Clean;
 
 use Moose::Role;
 

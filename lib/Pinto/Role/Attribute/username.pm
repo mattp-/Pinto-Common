@@ -1,6 +1,6 @@
 # ABSTRACT: Something that has a username attribute
 
-package Pinto::Attribute::username;
+package Pinto::Role::Attribute::username;
 
 use Moose::Role;
 

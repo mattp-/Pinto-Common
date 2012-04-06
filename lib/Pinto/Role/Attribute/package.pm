@@ -1,6 +1,6 @@
 # ABSTRACT: Something that has a package attribute
 
-package Pinto::Attribute::package;
+package Pinto::Role::Attribute::package;
 
 use Moose::Role;
 

@@ -1,6 +1,6 @@
 # ABSTRACT: Something that has a format attribute
 
-package Pinto::Attribute::format;
+package Pinto::Role::Attribute::format;
 
 use Moose::Role;
 

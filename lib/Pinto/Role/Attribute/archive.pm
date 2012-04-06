@@ -1,6 +1,6 @@
 # ABSTRACT: Something that has a distribution archive attribute
 
-package Pinto::Attribute::archive;
+package Pinto::Role::Attribute::archive;
 
 use Moose::Role;
 

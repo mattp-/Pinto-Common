@@ -1,6 +1,6 @@
 # ABSTRACT: Something that has a norecurse attribute
 
-package Pinto::Attribute::norecurse;
+package Pinto::Role::Attribute::norecurse;
 
 use Moose::Role;
 

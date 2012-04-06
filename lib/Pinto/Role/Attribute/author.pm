@@ -1,6 +1,6 @@
 # ABSTRACT: Something that has an author id attribute
 
-package Pinto::Attribute::author;
+package Pinto::Role::Attribute::author;
 
 use Moose::Role;
 
@@ -14,8 +14,8 @@ use Pinto::Types qw(AuthorID);
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Attribute::pausecfg
-         Pinto::Attribute::username
+with qw( Pinto::Role::Attribute::pausecfg
+         Pinto::Role::Attribute::username
          Pinto::Meta::Attribute::Trait::Postable );
 
 #------------------------------------------------------------------------------

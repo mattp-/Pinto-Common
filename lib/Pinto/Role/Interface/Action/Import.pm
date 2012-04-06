@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::Import
 
-package Pinto::Interface::Action::Import;
+package Pinto::Role::Interface::Action::Import;
 
 use Moose::Role;
 
@@ -12,9 +12,9 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Attribute::package
-         Pinto::Attribute::version
-         Pinto::Attribute::norecurse );
+with qw( Pinto::Role::Attribute::package
+         Pinto::Role::Attribute::version
+         Pinto::Role::Attribute::norecurse );
 
 #------------------------------------------------------------------------------
 

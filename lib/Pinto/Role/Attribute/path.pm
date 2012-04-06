@@ -1,6 +1,6 @@
 # ABSTRACT: Something that has a distribution path attribute
 
-package Pinto::Attribute::path;
+package Pinto::Role::Attribute::path;
 
 use Moose::Role;
 

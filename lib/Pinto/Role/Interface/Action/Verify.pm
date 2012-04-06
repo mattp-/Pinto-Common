@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::Verify
 
-package Pinto::Interface::Action::Verify;
+package Pinto::Role::Interface::Action::Verify;
 
 use Moose::Role;
 
@@ -12,7 +12,7 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Attribute::out );
+with qw( Pinto::Role::Attribute::out );
 
 #------------------------------------------------------------------------------
 

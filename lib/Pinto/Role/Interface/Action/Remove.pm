@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::Remove
 
-package Pinto::Interface::Action::Remove;
+package Pinto::Role::Interface::Action::Remove;
 
 use Moose::Role;
 
@@ -12,8 +12,8 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Attribute::path
-         Pinto::Attribute::author );
+with qw( Pinto::Role::Attribute::path
+         Pinto::Role::Attribute::author );
 
 #------------------------------------------------------------------------------
 

@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::Unpin
 
-package Pinto::Interface::Action::Unpin;
+package Pinto::Role::Interface::Action::Unpin;
 
 use Moose::Role;
 
@@ -12,7 +12,7 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Attribute::package );
+with qw( Pinto::Role::Attribute::package );
 
 #------------------------------------------------------------------------------
 

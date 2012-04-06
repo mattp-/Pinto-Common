@@ -1,6 +1,6 @@
 # ABSTRACT: Something that has an output handle attribute
 
-package Pinto::Attribute::out;
+package Pinto::Role::Attribute::out;
 
 use Moose::Role;
 

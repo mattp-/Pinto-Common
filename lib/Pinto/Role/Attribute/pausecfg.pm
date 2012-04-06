@@ -1,6 +1,6 @@
 # ABSTRACT: Something that has a pause config attribute
 
-package Pinto::Attribute::pausecfg;
+package Pinto::Role::Attribute::pausecfg;
 
 use Moose::Role;
 

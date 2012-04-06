@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::Mirror
 
-package Pinto::Interface::Action::Mirror;
+package Pinto::Role::Interface::Action::Mirror;
 
 use Moose::Role;
 

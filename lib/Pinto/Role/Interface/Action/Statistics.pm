@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::Statistics
 
-package Pinto::Interface::Action::Statistics;
+package Pinto::Role::Interface::Action::Statistics;
 
 use Moose::Role;
 
@@ -12,7 +12,7 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Attribute::out );
+with qw( Pinto::Role::Attribute::out );
 
 #------------------------------------------------------------------------------
 

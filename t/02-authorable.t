@@ -10,7 +10,7 @@ use Test::More;
 {
     package TEST;
     use Moose;
-    with qw(Pinto::Attribute::author);
+    with qw(Pinto::Role::Attribute::author);
 }
 
 #------------------------------------------------------------------------------

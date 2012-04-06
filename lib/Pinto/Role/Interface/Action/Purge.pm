@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::Purge
 
-package Pinto::Interface::Action::Purge;
+package Pinto::Role::Interface::Action::Purge;
 
 use Moose::Role;
 

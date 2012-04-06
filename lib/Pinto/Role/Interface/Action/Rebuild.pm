@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::Rebuild
 
-package Pinto::Interface::Action::Rebuild;
+package Pinto::Role::Interface::Action::Rebuild;
 
 use Moose::Role;
 

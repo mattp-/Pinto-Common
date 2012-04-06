@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::Add
 
-package Pinto::Interface::Action::Add;
+package Pinto::Role::Interface::Action::Add;
 
 use Moose::Role;
 
@@ -12,9 +12,9 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Attribute::author
-         Pinto::Attribute::archive
-         Pinto::Attribute::norecurse );
+with qw( Pinto::Role::Attribute::author
+         Pinto::Role::Attribute::archive
+         Pinto::Role::Attribute::norecurse );
 
 #------------------------------------------------------------------------------
 

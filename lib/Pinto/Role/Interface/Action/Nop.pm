@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::Nop;
 
-package Pinto::Interface::Action::Nop;
+package Pinto::Role::Interface::Action::Nop;
 
 use Moose::Role;
 

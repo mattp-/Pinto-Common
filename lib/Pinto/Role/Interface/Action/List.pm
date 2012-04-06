@@ -1,6 +1,6 @@
 # ABSTRACT: Interface for Action::List
 
-package Pinto::Interface::Action::List;
+package Pinto::Role::Interface::Action::List;
 
 use Moose::Role;
 
@@ -14,7 +14,7 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Attribute::out
+with qw( Pinto::Role::Attribute::out
          Pinto::Meta::Attribute::Trait::Postable );
 
 #------------------------------------------------------------------------------

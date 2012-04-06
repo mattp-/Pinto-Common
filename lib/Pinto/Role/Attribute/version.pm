@@ -1,6 +1,6 @@
 # ABSTRACT: Something that has a version attribute
 
-package Pinto::Attribute::version;
+package Pinto::Role::Attribute::version;
 
 use Moose::Role;
 
