@@ -66,9 +66,9 @@ Readonly our $PINTO_SERVER_RESPONSE_EPILOGUE =>
 
 #------------------------------------------------------------------------------
 
-my $COLOR_NORMAL      => { text => undef,    background => undef };
-my $COLOR_BOLD_YELLOW => { text => 'yellow', background => undef, bold => 1 };
-my $COLOR_BOLD_RED    => { text => 'red',    background => undef, bold => 1 };
+my $COLOR_NORMAL      = { text => undef,    background => undef };
+my $COLOR_BOLD_YELLOW = { text => 'yellow', background => undef, bold => 1 };
+my $COLOR_BOLD_RED    = { text => 'red',    background => undef, bold => 1 };
 
 Readonly our $PINTO_DEFAULT_LOG_COLORS => { debug    => $COLOR_NORMAL,
                                             info     => $COLOR_NORMAL,
