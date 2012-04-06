@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+    Reorganized roles into different directory/package structure.
+
 0.035     2012-04-04 18:55:44 America/Los_Angeles
 
     Revised the Pinto::Manual.  This is still a work in progress.
