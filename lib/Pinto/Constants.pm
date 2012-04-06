@@ -29,6 +29,8 @@ Readonly our @EXPORT_OK => qw(
     $PINTO_SERVER_RESPONSE_EPILOGUE
     $PINTO_SERVER_RESPONSE_LINE_PREFIX
 
+    $PINTO_DEFAULT_LOG_COLORS
+
     $PINTO_REPOSITORY_ROOT_ENV_VAR
 );
 
@@ -61,6 +63,20 @@ Readonly our $PINTO_SERVER_RESPONSE_PROLOGUE =>
 
 Readonly our $PINTO_SERVER_RESPONSE_EPILOGUE =>
     "${PINTO_SERVER_RESPONSE_LINE_PREFIX}Status: ok";
+
+#------------------------------------------------------------------------------
+
+my $COLOR_NORMAL      => { text => undef,    background => undef };
+my $COLOR_BOLD_YELLOW => { text => 'yellow', background => undef, bold => 1 };
+my $COLOR_BOLD_RED    => { text => 'red',    background => undef, bold => 1 };
+
+Readonly our $PINTO_DEFAULT_LOG_COLORS => { debug    => $COLOR_NORMAL,
+                                            info     => $COLOR_NORMAL,
+                                            notice   => $COLOR_NORMAL,
+                                            warning  => $COLOR_BOLD_YELLOW,
+                                            error    => $COLOR_BOLD_RED,
+                                            critical => $COLOR_BOLD_RED };
+
 
 #------------------------------------------------------------------------------
 
