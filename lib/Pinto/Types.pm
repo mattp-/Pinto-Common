@@ -5,13 +5,14 @@ package Pinto::Types;
 use strict;
 use warnings;
 
-use MooseX::Types -declare => [ qw( AuthorID StackName Uri Dir File IO Vers) ];
+use MooseX::Types -declare => [ qw( AuthorID StackName Uri Dir File IO Vers LogLevel) ];
 use MooseX::Types::Moose qw( Str Num ScalarRef ArrayRef FileHandle Object Int);
 
 use URI;
 use Path::Class::Dir;
 use Path::Class::File;
 use File::HomeDir;
+use Log::Dispatch;
 use IO::String;
 use IO::Handle;
 use IO::File;
@@ -28,11 +29,18 @@ use namespace::autoclean;
 subtype AuthorID,
     as Str,
     where { not m/[^A-Z0-9-]/x },
-    message { "The author ($_) must be alphanumeric" };
+    message { "The author id ($_) must be alphanumeric" };
 
 coerce AuthorID,
     from Str,
     via  { uc $_ };
+
+#-----------------------------------------------------------------------------
+
+subtype LogLevel,
+    as Str,
+    where { m/^(debug|info|notice|warning|error)$/x },
+    message { "Log level ($_) must be one of: debug info notice warning error" };
 
 #-----------------------------------------------------------------------------
 
