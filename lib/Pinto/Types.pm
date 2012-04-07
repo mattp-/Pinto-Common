@@ -12,7 +12,6 @@ use URI;
 use Path::Class::Dir;
 use Path::Class::File;
 use File::HomeDir;
-use Log::Dispatch;
 use IO::String;
 use IO::Handle;
 use IO::File;
