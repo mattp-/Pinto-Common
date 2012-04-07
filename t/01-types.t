@@ -43,9 +43,6 @@ is(ref $t->version, 'version', 'Coerced version from string');
 $t->version('v5.1.2');
 is(ref $t->version, 'version', 'Coerced version from v-string');
 
-lives_ok { $t->log_level('notice') } 'Valid LogLevel';
-throws_ok {$t->log_level('bogus') } qr/must be one of/, 'LogLevel type constraint';
-
 #-----------------------------------------------------------------------------
 
 done_testing();

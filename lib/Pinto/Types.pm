@@ -36,13 +36,6 @@ coerce AuthorID,
 
 #-----------------------------------------------------------------------------
 
-subtype LogLevel,
-    as Str,
-    where { m/^(debug|info|notice|warning|error)$/x },
-    message { "Log level ($_) must be one of: debug info notice warning error" };
-
-#-----------------------------------------------------------------------------
-
 subtype StackName,
     as Str,
     where { not m/[^a-z0-9-_]/x },
