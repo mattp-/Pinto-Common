@@ -1,5 +1,10 @@
 {{$NEXT}}
 
+    Added DistributionSpec and PackageSpec classes.
+
+    Enhanced the Import action to accept either a
+    DistributionSpec or PackageSpec as the target.
+
 0.036     2012-04-08 23:38:19 America/Los_Angeles
 
     Reorganized roles into different directory/package structure.
