@@ -95,7 +95,13 @@ context.  Returns the same result as the C<path> method.
 sub to_string {
     my ($self) = @_;
 
-    return $self->path;
+    my $author   = $self->author;
+    my @subdirs  = @{ $self->subdirs };
+    my $basename = $self->basename;
+
+    return join '/', $author,
+                     @subdirs,
+                     $basename;
 }
 
 #------------------------------------------------------------------------------

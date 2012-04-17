@@ -14,7 +14,8 @@ use Pinto::DistributionSpec;
   my $spec = Pinto::DistributionSpec->new('AUTHOR/subdir/Foo-1.2.tar.gz');
   is $spec->author,   'AUTHOR',  'Parsed author from string';
   is $spec->basename, 'Foo-1.2.tar.gz',  'Parsed basename from string';
-  is "$spec", 'A/AU/AUTHOR/subdir/Foo-1.2.tar.gz', 'Stringified object';
+  is $spec->path, 'A/AU/AUTHOR/subdir/Foo-1.2.tar.gz',  'Constructed path from string';
+  is "$spec", 'AUTHOR/subdir/Foo-1.2.tar.gz', 'Stringified object';
 
 }
 
@@ -25,7 +26,8 @@ use Pinto::DistributionSpec;
   my $spec = Pinto::DistributionSpec->new('author/subdir/Foo-1.2.tar.gz');
   is $spec->author, 'AUTHOR',  'Parsed lowercase author from string';
   is $spec->basename, 'Foo-1.2.tar.gz',  'Parsed basename from string';
-  is "$spec", 'A/AU/AUTHOR/subdir/Foo-1.2.tar.gz', 'Stringified object';
+  is $spec->path, 'A/AU/AUTHOR/subdir/Foo-1.2.tar.gz',  'Constructed path from string';
+  is "$spec", 'AUTHOR/subdir/Foo-1.2.tar.gz', 'Stringified object';
 
 }
 
@@ -39,7 +41,8 @@ use Pinto::DistributionSpec;
 
   is $spec->author, 'AUTHOR',  'author from attribute';
   is $spec->basename, 'Foo-1.2.tar.gz',  'basename from attribute';
-  is "$spec", 'A/AU/AUTHOR/foo/bar/Foo-1.2.tar.gz', 'Stringified object';
+  is $spec->path, 'A/AU/AUTHOR/foo/bar/Foo-1.2.tar.gz',  'Constructed path from string';
+  is "$spec", 'AUTHOR/foo/bar/Foo-1.2.tar.gz', 'Stringified object';
 
 }
 
