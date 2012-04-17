@@ -37,7 +37,7 @@ around BUILDARGS => sub {
 
     my @args = @_;
     if (@args == 1 and not ref $args[0]) {
-        my ($name, $version) = split m{-}, $_[0], 2;
+        my ($name, $version) = split m{-}x, $_[0], 2;
         @args = (name => $name, version => $version || 0);
     }
 
@@ -45,6 +45,13 @@ around BUILDARGS => sub {
 };
 
 #------------------------------------------------------------------------------
+
+=method to_string()
+
+Serializes this PackageSpec to its string form.  This method is called
+whenever the PackageSpec is evaluated in string context.
+
+=cut
 
 sub to_string {
     my ($self) = @_;
