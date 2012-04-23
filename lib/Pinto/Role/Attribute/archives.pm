@@ -3,7 +3,7 @@
 package Pinto::Role::Attribute::archives;
 
 use Moose::Role;
-
+use MooseX::Types::Moose qw(ArrayRef);
 use Pinto::Types qw( File );
 
 use namespace::autoclean;
