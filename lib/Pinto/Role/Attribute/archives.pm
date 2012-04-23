@@ -1,6 +1,6 @@
 # ABSTRACT: Something that has a distribution archive attribute
 
-package Pinto::Role::Attribute::archive;
+package Pinto::Role::Attribute::archives;
 
 use Moose::Role;
 
@@ -14,18 +14,13 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Meta::Attribute::Trait::Postable );
-
-#------------------------------------------------------------------------------
-# Attributes
-
-has archive  => (
+has archives  => (
     is       => 'ro',
-    isa      => File,
+    isa      => ArrayRef[File],
     coerce   => 1,
     required => 1,
-    traits   => [ qw(Postable) ],
-    post_via => sub { [ $_[0]->archive->stringify ] },
+    traits   => [ qw(Array) ],
+    handles  => {archives => 'elements'}
 );
 
 #------------------------------------------------------------------------------
