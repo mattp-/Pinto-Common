@@ -1,8 +1,9 @@
-# ABSTRACT: Interface for Action::Clean
+# ABSTRACT: Something that has a pin attribute
 
-package Pinto::Role::Interface::Action::Clean;
+package Pinto::Role::Attribute::pin;
 
 use Moose::Role;
+use MooseX::Types::Moose qw(Bool);
 
 use namespace::autoclean;
 
@@ -12,9 +13,14 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Interface::Action );
+has pin => (
+    is        => 'ro',
+    isa       => Bool,
+    default   => 0,
+);
 
 #------------------------------------------------------------------------------
+
 1;
 
 __END__
