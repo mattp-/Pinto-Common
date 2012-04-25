@@ -19,15 +19,15 @@ use Test::More;
     my $username = 'testuser';
     local $ENV{USER} = $username;
 
-    my $test_obj = TEST->new();
-    is $test_obj->author(), uc $username, 'Got author ID from username'
+    my $test_obj = TEST->new(pauserc => 'nowhere');
+    is $test_obj->author, uc $username, 'Got author ID from username'
 }
 
 #------------------------------------------------------------------------------
 
 {
    my $pauseid = 'pauseid';
-   my $pauserc = File::Temp->new();
+   my $pauserc = File::Temp->new;
    print {$pauserc} "user $pauseid\n";
    close $pauserc;
 
