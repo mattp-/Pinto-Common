@@ -19,7 +19,7 @@ use Test::More;
     my $username = 'testuser';
     local $ENV{USER} = $username;
 
-    my $test_obj = TEST->new(pauserc => 'nowhere');
+    my $test_obj = TEST->new();
     is $test_obj->author(), uc $username, 'Got author ID from username'
 }
 
