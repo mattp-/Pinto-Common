@@ -1,11 +1,16 @@
 {{$NEXT}}
 
+     Bug Fixes:
+
+     Fixed the 02-authorable test, which would fail if you had a
+     ~/.pauserc file.
+
 0.037     2012-04-16 18:11:52 America/Los_Angeles
 
     Added DistributionSpec and PackageSpec classes.
 
-    Enhanced the Import action to accept either a
-    DistributionSpec or PackageSpec as the target.
+    Enhanced the Import action to accept either a DistributionSpec or
+    PackageSpec as the target.
 
 0.036     2012-04-08 23:38:19 America/Los_Angeles
 
