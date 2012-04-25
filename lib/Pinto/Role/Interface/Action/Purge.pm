@@ -1,6 +1,6 @@
-# ABSTRACT: Interface for Action::Pull
+# ABSTRACT: Interface for Action::Purge
 
-package Pinto::Role::Interface::Action::Pull;
+package Pinto::Role::Interface::Action::Purge;
 
 use Moose::Role;
 
@@ -12,14 +12,9 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Interface::Action
-         Pinto::Role::Attribute::targets
-         Pinto::Role::Attribute::stack
-         Pinto::Role::Attribute::pin
-         Pinto::Role::Attribute::norecurse );
+with qw( Pinto::Role::Interface::Action );
 
 #------------------------------------------------------------------------------
-
 1;
 
 __END__

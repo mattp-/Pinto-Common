@@ -1,6 +1,6 @@
-# ABSTRACT: Interface for Action::Pin
+# ABSTRACT: Interface for Action::Mirror
 
-package Pinto::Role::Interface::Action::Pin;
+package Pinto::Role::Interface::Action::Mirror;
 
 use Moose::Role;
 
@@ -12,12 +12,9 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Interface::Action
-         Pinto::Role::Attribute::package
-         Pinto::Role::Attribute::version );
+with qw( Pinto::Role::Interface::Action );
 
 #------------------------------------------------------------------------------
-
 1;
 
 __END__
