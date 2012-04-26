@@ -3,7 +3,6 @@
 package Pinto::Role::Attribute::targets;
 
 use Moose::Role;
-use Moose::Util::TypeConstraints;
 
 use Pinto::PackageSpec;
 use Pinto::DistributionSpec;
@@ -32,7 +31,7 @@ around BUILDARGS => sub {
 
     # Convert a scalar to a one element array
     my $targets = delete $args{targets};
-    $targets = [ $targets || () ] if ref $targets ne 'ARRAY';
+    $targets = [ $targets || () ] if not ref $targets;
 
     my @objects;
     for my $target ( @{ $targets } ){

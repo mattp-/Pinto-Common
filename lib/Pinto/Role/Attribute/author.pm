@@ -15,18 +15,16 @@ use Pinto::Types qw(AuthorID);
 #------------------------------------------------------------------------------
 
 with qw( Pinto::Role::Attribute::pausecfg
-         Pinto::Role::Attribute::username
-         Pinto::Meta::Attribute::Trait::Postable );
+         Pinto::Role::Attribute::username );
 
 #------------------------------------------------------------------------------
 
 has author => (
     is         => 'ro',
     isa        => AuthorID,
+    builder    => '_build_author',
     coerce     => 1,
     lazy       => 1,
-    builder    => '_build_author',
-    traits     => [ qw(Postable) ],
 );
 
 #------------------------------------------------------------------------------
