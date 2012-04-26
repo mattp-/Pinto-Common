@@ -3,8 +3,7 @@
 package Pinto::Role::Interface::Action::List;
 
 use Moose::Role;
-
-use MooseX::Types::Moose qw(Maybe Str Bool HashRef);
+use MooseX::Types::Moose qw(Str Bool);
 
 use namespace::autoclean;
 
@@ -35,13 +34,6 @@ has pinned => (
 );
 
 
-has index => (
-    is     => 'ro',
-    isa    => Str,
-    traits => [ qw(Postable) ],
-);
-
-
 has packages => (
     is     => 'ro',
     isa    => Str,
@@ -53,14 +45,6 @@ has distributions => (
     is     => 'ro',
     isa    => Str,
     traits => [ qw(Postable) ],
-);
-
-
-has where => (
-    is      => 'ro',
-    isa     => HashRef,
-    builder => '_build_where',
-    lazy    => 1,
 );
 
 #------------------------------------------------------------------------------
