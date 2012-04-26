@@ -20,7 +20,9 @@ with qw( Pinto::Role::Interface::Action
 
 has format => (
     is      => 'ro',
-    isa     => 'Maybe[Str]',
+    isa     => Str,
+    traits  => [ qw(Postable) ],
+    default => "%m%s%y %-40n %12v  %p\n",
 );
 
 #------------------------------------------------------------------------------
