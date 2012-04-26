@@ -15,17 +15,10 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Interface::Action );
+with qw( Pinto::Role::Interface::Action
+         Pinto::Role::Attribute::stack );
 
 #------------------------------------------------------------------------------
-
-has stack => (
-   is       => 'ro',
-   isa      => StackName,
-   coerce   => 1,
-   required => 1,
-);
-
 
 has description => (
     is      => 'ro',

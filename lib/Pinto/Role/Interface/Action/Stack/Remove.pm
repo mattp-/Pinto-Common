@@ -4,8 +4,6 @@ package Pinto::Role::Interface::Action::Stack::Remove;
 
 use Moose::Role;
 
-use Pinto::Types qw(StackName);
-
 use namespace::autoclean;
 
 #------------------------------------------------------------------------------
@@ -14,16 +12,8 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Interface::Action );
-
-#------------------------------------------------------------------------------
-
-has stack => (
-   is       => 'ro',
-   isa      => StackName,
-   coerce   => 1,
-   required => 1,
-);
+with qw( Pinto::Role::Interface::Action
+         Pinto::Role::Attribute::stack );
 
 #------------------------------------------------------------------------------
 1;
