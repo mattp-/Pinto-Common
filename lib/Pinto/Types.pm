@@ -5,7 +5,7 @@ package Pinto::Types;
 use strict;
 use warnings;
 
-use MooseX::Types -declare => [ qw( AuthorID StackName Uri Dir File IO Vers LogLevel) ];
+use MooseX::Types -declare => [ qw( AuthorID StackName Uri Dir File IO Vers ArrayRefOfFiles) ];
 use MooseX::Types::Moose qw( Str Num ScalarRef ArrayRef FileHandle Object Int);
 
 use URI;
@@ -70,24 +70,25 @@ coerce Uri,
 subtype Dir, as 'Path::Class::Dir';
 
 coerce Dir,
-    from Str,             via { Path::Class::Dir->new( _expand_tilde($_) ) },
-    from ArrayRef,        via { Path::Class::Dir->new( _expand_tilde( @{$_} ) ) };
+    from Str,             via { Path::Class::Dir->new($_) },
+    from ArrayRef,        via { Path::Class::Dir->new(@{$_}) };
 
 #-----------------------------------------------------------------------------
 
 subtype File, as 'Path::Class::File';
 
 coerce File,
-    from Str,             via { Path::Class::File->new( _expand_tilde($_) ) },
-    from ArrayRef,        via { Path::Class::File->new( @{$_} ) };
+    from Str,             via { Path::Class::File->new($_) },
+    from ArrayRef,        via { Path::Class::File->new(@{$_}) };
 
-sub _expand_tilde {
-    my (@paths) = @_;
+#-----------------------------------------------------------------------------
 
-    $paths[0] =~ s|\A ~ (?= \W )|File::HomeDir->my_home()|xe;
+subtype ArrayRefOfFiles, as ArrayRef[File];
 
-    return @paths;
-}
+coerce ArrayRefOfFiles,
+  from  File,          via { [ $_ ] },
+  from  Str,           via { [ Path::Class::File->new($_) ] },
+  from  ArrayRef[Str], via { [ map { Path::Class::File->new($_) } @$_ ] };
 
 #-----------------------------------------------------------------------------
 
