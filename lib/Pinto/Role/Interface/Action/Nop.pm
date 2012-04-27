@@ -14,8 +14,7 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Interface::Action
-         Pinto::Meta::Attribute::Trait::Postable );
+with qw(Pinto::Role::Interface::Action);
 
 #------------------------------------------------------------------------------
 
@@ -23,7 +22,6 @@ has sleep => (
     is      => 'ro',
     isa     => Int,
     default => 0,
-    traits  => [ qw(Postable) ],
 );
 
 #------------------------------------------------------------------------------

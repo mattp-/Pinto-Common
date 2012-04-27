@@ -15,36 +15,31 @@ use namespace::autoclean;
 
 with qw( Pinto::Role::Interface::Action
          Pinto::Role::Attribute::out
-         Pinto::Role::Attribute::stack
-         Pinto::Meta::Attribute::Trait::Postable );
+         Pinto::Role::Attribute::stack );
 
 #------------------------------------------------------------------------------
 
 has format => (
     is      => 'ro',
     isa     => Str,
-    traits  => [ qw(Postable) ],
 );
 
 
 has pinned => (
     is     => 'ro',
     isa    => Bool,
-    traits => [ qw(Postable) ],
 );
 
 
 has packages => (
     is     => 'ro',
     isa    => Str,
-    traits => [ qw(Postable) ],
 );
 
 
 has distributions => (
     is     => 'ro',
     isa    => Str,
-    traits => [ qw(Postable) ],
 );
 
 #------------------------------------------------------------------------------

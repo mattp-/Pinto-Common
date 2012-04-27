@@ -5,10 +5,13 @@ package Pinto::Types;
 use strict;
 use warnings;
 
-use MooseX::Types -declare => [ qw( AuthorID StackName Uri Dir File IO Vers ArrayRefOfFiles) ];
-use MooseX::Types::Moose qw( Str Num ScalarRef ArrayRef FileHandle Object Int);
+use MooseX::Types -declare => [ qw( AuthorID StackName Uri Dir File IO Vers
+                                    Pkg Dist ArrayRefOfFiles ArrayRefOfPkgsOrDists) ];
+
+use MooseX::Types::Moose qw(Str Num ScalarRef ArrayRef HashRef FileHandle Object Int);
 
 use URI;
+use Class::Load;
 use Path::Class::Dir;
 use Path::Class::File;
 use File::HomeDir;
@@ -33,7 +36,6 @@ subtype AuthorID,
 coerce AuthorID,
     from Str,
     via  { uc $_ };
-
 #-----------------------------------------------------------------------------
 
 subtype StackName,
@@ -67,7 +69,7 @@ coerce Uri,
 
 #-----------------------------------------------------------------------------
 
-subtype Dir, as 'Path::Class::Dir';
+class_type Dir, {class => 'Path::Class::Dir'};
 
 coerce Dir,
     from Str,             via { Path::Class::Dir->new($_) },
@@ -75,7 +77,7 @@ coerce Dir,
 
 #-----------------------------------------------------------------------------
 
-subtype File, as 'Path::Class::File';
+class_type File, {class => 'Path::Class::File'};
 
 coerce File,
     from Str,             via { Path::Class::File->new($_) },
@@ -89,6 +91,53 @@ coerce ArrayRefOfFiles,
   from  File,          via { [ $_ ] },
   from  Str,           via { [ Path::Class::File->new($_) ] },
   from  ArrayRef[Str], via { [ map { Path::Class::File->new($_) } @$_ ] };
+
+#-----------------------------------------------------------------------------
+
+class_type Pkg, {class => 'Pinto::PackageSpec'};
+
+coerce Pkg,
+  from Str,     via { _coerce_str_to_spec($_) },
+  from HashRef, via { _coeree_str_to_spec($_) };
+
+#-----------------------------------------------------------------------------
+
+class_type Dist, {class => 'Pinto::DistributionSpec'};
+
+coerce Dist,
+  from Str,         via { _coerce_str_to_spec($_) },
+  from HashRef,     via { _coerce_str_to_spec($_) };
+
+
+#-----------------------------------------------------------------------------
+
+subtype ArrayRefOfPkgsOrDists,
+  as ArrayRef[Pkg | Dist];
+
+coerce ArrayRefOfPkgsOrDists,
+  from  Pkg,              via { [ $_ ] },
+  from  Dist,             via { [ $_ ] },
+  from  Str,              via { [ _coerce_str_to_spec($_) ] },
+  from  ArrayRef[Str],    via { [ map { _coerce_str_to_spec($_) } @$_ ] };
+
+
+sub _coerce_str_to_spec {
+  my ($str) = @_;
+
+  my $class = ($str =~ m{/}x) ? 'Pinto::DistributionSpec'
+                              : 'Pinto::PackageSpec';
+
+  # HACK: This type library needs the DistributionSpec and PackageSpec
+  # modules so it can coerce things to those classes.  But those
+  # classes depend on this type library to define types for their
+  # attributes.  So to avoid this circular dependency, we're going to
+  # just defer loading the PackageSpec and DistributionSpec classes
+  # until will need them at runtime.
+
+  Class::Load::load_class($class);
+  return $class->new($str);
+}
+
 
 #-----------------------------------------------------------------------------
 

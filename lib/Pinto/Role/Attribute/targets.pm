@@ -4,8 +4,7 @@ package Pinto::Role::Attribute::targets;
 
 use Moose::Role;
 
-use Pinto::PackageSpec;
-use Pinto::DistributionSpec;
+use Pinto::Types qw(ArrayRefOfPkgsOrDists);
 
 use namespace::autoclean;
 
@@ -14,41 +13,14 @@ use namespace::autoclean;
 # VERSION
 
 #------------------------------------------------------------------------------
-# TODO: Come up with a custom Type and coercion to do the right thing with...
-# ArrayRef of objects, ArrayRef of strings, single object, single string
 
 has targets => (
-    isa      => 'ArrayRef',
+    isa      => ArrayRefOfPkgsOrDists,
     traits   => [ qw(Array) ],
     handles  => {targets => 'elements'},
     required => 1,
+    coerce   => 1,
 );
-
-#------------------------------------------------------------------------------
-
-around BUILDARGS => sub {
-    my ($orig, $class, %args) = @_;
-
-    # Convert a scalar to a one element array
-    my $targets = delete $args{targets};
-    $targets = [ $targets || () ] if not ref $targets;
-
-    my @objects;
-    for my $target ( @{ $targets } ){
-
-        # If the target is not a reference, then we presume it is a
-        # specification string.  If the string contains a slash then
-        # it must be a DistributionSpec.  Otherwise it must be a
-        # PackageSpec.
-
-        push @objects, ref $target ? $target :
-                ($target =~ m{/}x) ? Pinto::DistributionSpec->new($target)
-                                   : Pinto::PackageSpec->new($target);
-    }
-
-    $args{targets} = \@objects;
-    return $class->$orig(%args);
-};
 
 #------------------------------------------------------------------------------
 
