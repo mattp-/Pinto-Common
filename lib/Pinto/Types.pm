@@ -101,7 +101,7 @@ coerce Dist,
 #-----------------------------------------------------------------------------
 
 subtype ArrayRefOfPkgsOrDists,
-  as ArrayRef[Pkg | Dist];
+  as ArrayRef[Pkg | Dist];           ## no critic qw(ProhibitBitwiseOperators);
 
 coerce ArrayRefOfPkgsOrDists,
   from  Pkg,              via { [ $_ ] },
