@@ -29,10 +29,6 @@ $t->author('hello');
 is($t->author, 'HELLO', 'Coerced Author ID from string');
 throws_ok {$t->author('foo bar!') } qr/alphanumeric/, 'AuthorID type constraint';
 
-$t->stack('ProD');
-is($t->stack, 'prod', 'Coerced stack name from string');
-throws_ok {$t->stack('foo bar!') } qr/alphanumeric/, 'StackName type constraint';
-
 $t->version(5.1);
 is(ref $t->version, 'version', 'Coerced version from number');
 

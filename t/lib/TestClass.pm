@@ -1,7 +1,8 @@
 package TestClass;
 
 use Moose;
-use Pinto::Types qw(File Dir Uri IO AuthorID StackName Vers Pkg Dist ArrayRefOfPkgsOrDists);
+use Pinto::Types qw( File Dir Uri IO AuthorID Vers
+                     Pkg Dist ArrayRefOfPkgsOrDists );
 
 #-----------------------------------------------------------------------------
 
@@ -32,12 +33,6 @@ has io  => (
 has author => (
     is  => 'rw',
     isa => AuthorID,
-    coerce => 1,
-);
-
-has stack => (
-    is  => 'rw',
-    isa => StackName,
     coerce => 1,
 );
 

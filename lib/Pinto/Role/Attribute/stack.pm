@@ -3,8 +3,7 @@
 package Pinto::Role::Attribute::stack;
 
 use Moose::Role;
-
-use Pinto::Types qw(StackName);
+use MooseX::Types::Moose qw(Str);
 
 use namespace::autoclean;
 
@@ -16,9 +15,7 @@ use namespace::autoclean;
 
 has stack => (
     is       => 'ro',
-    isa      => StackName,
-    default  => 'default',
-    coerce   => 1,
+    isa      => Str,
 );
 
 #------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
-# ABSTRACT: Interface for Action::Stack::Create
+# ABSTRACT: Interface for Action::Stack::Props
 
-package Pinto::Role::Interface::Action::Stack::Copy;
+package Pinto::Role::Interface::Action::Stack::Props;
 
 use Moose::Role;
 use MooseX::Types::Moose qw(Str);
@@ -14,21 +14,14 @@ use namespace::autoclean;
 #------------------------------------------------------------------------------
 
 with qw( Pinto::Role::Interface::Action
-         Pinto::Role::Attribute::description );
+         Pinto::Role::Attribute::out );
 
 #------------------------------------------------------------------------------
 
-has from_stack => (
-    is       => 'ro',
-    isa      => Str,
-    required => 1,
-);
-
-
-has to_stack => (
-    is       => 'ro',
-    isa      => Str,
-    required => 1,
+has format => (
+    is      => 'ro',
+    isa     => Str,
+    default => "%n = %v\n",
 );
 
 #------------------------------------------------------------------------------

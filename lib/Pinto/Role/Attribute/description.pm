@@ -1,6 +1,6 @@
-# ABSTRACT: Interface for Action::Stack::Create
+# ABSTRACT: Something that has a description attribute
 
-package Pinto::Role::Interface::Action::Stack::Create;
+package Pinto::Role::Attribute::description;
 
 use Moose::Role;
 use MooseX::Types::Moose qw(Str);
@@ -13,18 +13,14 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Interface::Action
-         Pinto::Role::Attribute::description );
-
-#------------------------------------------------------------------------------
-
-has stack => (
-    is       => 'ro',
-    isa      => Str,
-    required => 1,
+has description => (
+    is         => 'ro',
+    isa        => Str,
+    predicate  => 'has_description',
 );
 
 #------------------------------------------------------------------------------
 1;
 
 __END__
+

@@ -1,9 +1,9 @@
-# ABSTRACT: Interface for Action::Stack::Create
+# ABSTRACT: Interface for Action::Stack::Edit
 
-package Pinto::Role::Interface::Action::Stack::Copy;
+package Pinto::Role::Interface::Action::Stack::Edit;
 
 use Moose::Role;
-use MooseX::Types::Moose qw(Str);
+use MooseX::Types::Moose qw(Str HashRef);
 
 use namespace::autoclean;
 
@@ -18,17 +18,17 @@ with qw( Pinto::Role::Interface::Action
 
 #------------------------------------------------------------------------------
 
-has from_stack => (
+has stack => (
     is       => 'ro',
     isa      => Str,
     required => 1,
 );
 
 
-has to_stack => (
-    is       => 'ro',
-    isa      => Str,
-    required => 1,
+has properties => (
+    is      => 'ro',
+    isa     => HashRef,
+    default => sub{ {} },
 );
 
 #------------------------------------------------------------------------------
