@@ -3,7 +3,7 @@
 package Pinto::Role::Interface::Action::Stack::Edit;
 
 use Moose::Role;
-use MooseX::Types::Moose qw(Str HashRef);
+use MooseX::Types::Moose qw(Str HashRef Bool);
 
 use namespace::autoclean;
 
@@ -29,6 +29,14 @@ has properties => (
     isa     => HashRef,
     default => sub{ {} },
 );
+
+
+has master => (
+  is      => 'ro',
+  isa     => Bool,
+  default => 0,
+);
+
 
 #------------------------------------------------------------------------------
 

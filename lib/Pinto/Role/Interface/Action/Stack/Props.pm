@@ -18,6 +18,13 @@ with qw( Pinto::Role::Interface::Action
 
 #------------------------------------------------------------------------------
 
+has stack  => (
+    is       => 'ro',
+    isa      => Str,
+    required => 1,
+);
+
+
 has format => (
     is      => 'ro',
     isa     => Str,
