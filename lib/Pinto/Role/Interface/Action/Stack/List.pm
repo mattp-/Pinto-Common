@@ -21,7 +21,7 @@ with qw( Pinto::Role::Interface::Action
 has format => (
     is      => 'ro',
     isa     => Str,
-    default => "%12k: %e (last modified: %U)\n",
+    default => "%M%12k: %e (last modified: %U)\n",
 );
 
 #------------------------------------------------------------------------------
