@@ -13,8 +13,7 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Interface::Action
-         Pinto::Role::Attribute::description );
+with qw( Pinto::Role::Interface::Action );
 
 #------------------------------------------------------------------------------
 
