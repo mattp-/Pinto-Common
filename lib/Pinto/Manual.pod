@@ -16,7 +16,7 @@ so feel free to send suggestions to the author.
 =head1 GOALS
 
 Pinto has two primary goals.  First, Pinto seeks to address the
-problem of instability in the CPAN mirrors.  Distributions are
+problem of instability in the CPAN mirrors.  Distribution archives are
 constantly added and removed from the CPAN, so if you use it to build
 a system or application, you may not get the same result twice.
 Second, Pinto seeks to enable developers to use the CPAN toolchain for
@@ -24,20 +24,20 @@ building, testing, and dependency management of their own local
 software, even if they never plan to release it to the CPAN.
 
 Pinto accomplishes these goals by providing a suite of tools for
-creating and managing your own CPAN-like repositories.  These
-repositories can contain any distributions you like, and can be used
-with the standard CPAN toolchain.
+creating and managing your own custom repositories of distribution
+archives.  These repositories can contain any distribution archives
+you like, and can be used with the standard CPAN toolchain.
 
 =head1 PRIOR ART
 
-The idea of a private CPAN is not new.  Randal Schwartz presented
+The idea of a custom repository is not new.  Randal Schwartz presented
 L<the idea|http://www.stonehenge.com/merlyn/LinuxMag/col42.html> back
 in 2002.  Subsequently, modules like L<CPAN::Site> and L<CPAN::Mini>
 were released.  More recently, L<OrePAN> and L<MyCPAN::App::DPAN> have
 emerged as well.
 
-Over the last few years, I personally used various combinations of those
-modules to create private CPAN repositories at several organizations.
+Over the last few years, I personally used various combinations of
+those modules to create custom repositories at several organizations.
 But they always required some wrapping and/or glue to make them usable
 in the development cycle.  And none of them seemed to be designed for
 extension.
@@ -45,8 +45,6 @@ extension.
 I wanted a suite of tools that would work out-of-the-box, and would
 accommodate a fairly wide range of use cases. Hence, L<Pinto> was
 born.
-
-=head1
 
 =head1 COMPONENTS
 
@@ -59,9 +57,9 @@ install L<Task::Pinto> if you'd like to get everything in one shot.
 =head1 pinto-admin
 
 L<pinto-admin> is a utility for creating and managing a Pinto
-repository.  It supports the core operations of adding and removing
-local distributions, as well as mirroring and importing foreign
-distributions from other repositories.
+repository.  It supports the core operations of adding local
+distribution archives and pulling archives from other repositories.
+It also provides reports about the repository and its contents.
 
 =head2 pinto-server
 
@@ -74,34 +72,54 @@ L<cpanm>.
 =head2 pinto-remote
 
 L<pinto-remote> is a utility for interacting with a remote Pinto
-repository (via L<pinto-server>).  It provides a subset of the
+repository (via L<pinto-server>).  It supports most of the
 operations supported by L<pinto-admin>.
 
 
-=head1 USE CASES
+=head1 TERMINOLOGY
 
-All use cases revolve around the basic functions of adding and
-removing distributions from the repository, but there are differences
-in how you select and obtain those distributions.  I have used Pinto
-(or can imagine using it) in the following scenarios:
+Before going any further, I should stop and spell out the terminology
+that I'm going to use.
 
-=head2 SNAPSHOT OF CPAN MIRROR
+=over 4
 
-You can use Pinto to create a stable snapshot of a CPAN mirror.  This
-can easily be done with the C<mirror> command.
+=item  Archive
 
-  $> pinto-admin -r /my/cpan create
-  $> pinto-admin -r /my/cpan mirror
+An "archive" is the file that developers ship, which contains all
+their application/library code, test cases, build scripts etc.
+Converserly, the archive is the file that users must fetch to install
+the application/library.  Sometimes I also refer to these as
+"distributions".
 
-This creates a repository that contains the latest versions of all
-packages on the CPAN (this may take several hours the first time you
-do it).  Now, when you point your installer client at F</my/cpan> you
-can now build your dependency stack and get the same result over and
-over.
+=item Package
 
-=head2 UPGRADING THE ENTIRE SNAPSHOT
+A "package" is something inside a distribution archive that provides
+some unit of functionality.  In Perl, packages are declared with the
+C<package> keyword.  Some folks call these "modules" but I try to
+avoid that term because it is overloaded.
 
-Any time you want to upgrade to the latest version of all your
+=item Prerequisite
+
+A "prerequisite" is a package that must be installed for the sake of
+another distribution archive.  Sometimes I call these "dependencies".
+
+=back
+
+=head1 CONCEPTS
+
+=over4
+
+=item Stack
+
+All CPAN-like repositories have an index which maps the latest
+version of each package to the archive that contains it.  But usually,
+there is only one such index.  With Pinto, there can be many
+indexes.  Each of
+
+
+=item Pin
+
+
 dependencies, you can run the mirror command again (it will be much
 faster now).  But let's suppose that the new C<Foo-2.0> package breaks
 your application.  You can remove its distribution by using the
@@ -193,21 +211,6 @@ The first strategy is to use Pinto purely as a repository for local
 distributions.  These distributions could be private or public, or a
 mix of both.  But the repository contains only the distributions that
 you explicitly add to it.
-
-=head3 Snapshots Of The Public CPAN
-
-The second strategy is to use Pinto as snapshot of the public CPAN.
-In this strategy, your repository contains the current version of
-every package indexed on a public CPAN, as-of the time you made the
-snapshot.  You may choose to periodically update the snapshot.
-
-=head3 CPAN Plus Local Distributions
-
-The third strategy is to combine a snapshot of the public CPAN with
-your own local distributions.  In this scenario, your Pinto repository
-contains all of the CPAN distributions plus your local ones, and your
-local ones always take precedence over those you got from the public
-CPAN.
 
 =head3 Project-specific Repository
 
