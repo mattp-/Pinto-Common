@@ -20,9 +20,11 @@ with qw( Pinto::Role::Interface::Action
 #------------------------------------------------------------------------------
 
 has format => (
-    is      => 'ro',
-    isa     => Str,
-    default => "%m%s%y %-40n %12v  %p\n",
+    is        => 'ro',
+    isa       => Str,
+    default   => "%m%s%y %-40n %12v  %p\n",
+    predicate => 'has_format',
+    lazy      => 1,
 );
 
 
