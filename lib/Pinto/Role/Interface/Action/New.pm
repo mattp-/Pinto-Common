@@ -1,8 +1,9 @@
-# ABSTRACT: Interface for Action::Stack::Remove
+# ABSTRACT: Interface for Action::New
 
-package Pinto::Role::Interface::Action::Stack::Remove;
+package Pinto::Role::Interface::Action::New;
 
 use Moose::Role;
+use MooseX::Types::Moose qw(Str);
 
 use namespace::autoclean;
 
@@ -13,7 +14,15 @@ use namespace::autoclean;
 #------------------------------------------------------------------------------
 
 with qw( Pinto::Role::Interface::Action
-         Pinto::Role::Attribute::stack );
+         Pinto::Role::Attribute::description );
+
+#------------------------------------------------------------------------------
+
+has stack => (
+    is       => 'ro',
+    isa      => Str,
+    required => 1,
+);
 
 #------------------------------------------------------------------------------
 1;

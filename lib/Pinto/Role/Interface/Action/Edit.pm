@@ -1,9 +1,9 @@
-# ABSTRACT: Interface for Action::Stack::Log
+# ABSTRACT: Interface for Action::Edit
 
-package Pinto::Role::Interface::Action::Stack::Log;
+package Pinto::Role::Interface::Action::Edit;
 
 use Moose::Role;
-use MooseX::Types::Moose qw(Bool Int);
+use MooseX::Types::Moose qw(Str HashRef Bool);
 
 use namespace::autoclean;
 
@@ -13,23 +13,30 @@ use namespace::autoclean;
 
 #------------------------------------------------------------------------------
 
-with qw( Pinto::Role::Interface::Action
-         Pinto::Role::Attribute::stack
-         Pinto::Role::Attribute::out );
+with qw( Pinto::Role::Interface::Action );
 
 #------------------------------------------------------------------------------
 
-has revision => (
-    is        => 'ro',
-    isa       => Int,
-    predicate => 'has_revision',
+has stack => (
+    is       => 'ro',
+    isa      => Str,
+    required => 1,
 );
 
-has detailed => (
+
+has properties => (
     is      => 'ro',
-    isa     => Bool,
-    default => 0,
+    isa     => HashRef,
+    default => sub{ {} },
 );
+
+
+has master => (
+  is      => 'ro',
+  isa     => Bool,
+  default => 0,
+);
+
 
 #------------------------------------------------------------------------------
 

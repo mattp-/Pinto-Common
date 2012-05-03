@@ -1,6 +1,6 @@
-# ABSTRACT: Interface for Action::Stack::Create
+# ABSTRACT: Interface for Action::Copy
 
-package Pinto::Role::Interface::Action::Stack::Copy;
+package Pinto::Role::Interface::Action::Copy;
 
 use Moose::Role;
 use MooseX::Types::Moose qw(Str);

@@ -1,6 +1,6 @@
-# ABSTRACT: Interface for Action::Stack::List
+# ABSTRACT: Interface for Action::Stacks
 
-package Pinto::Role::Interface::Action::Stack::List;
+package Pinto::Role::Interface::Action::Stacks;
 
 use Moose::Role;
 use MooseX::Types::Moose qw(Str);
