@@ -1,6 +1,6 @@
-# ABSTRACT: Interface for Action::Copy
+# ABSTRACT: Interface for Action::Merge
 
-package Pinto::Role::Interface::Action::Copy;
+package Pinto::Role::Interface::Action::Merge;
 
 use Moose::Role;
 use MooseX::Types::Moose qw(Str);
