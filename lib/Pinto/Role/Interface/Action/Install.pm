@@ -3,7 +3,7 @@
 package Pinto::Role::Interface::Action::Install;
 
 use Moose::Role;
-use MooseX::Types::Moose qw(HashRef ArrayRef Str);
+use MooseX::Types::Moose qw(HashRef ArrayRef Maybe Str);
 
 use File::Which qw(which);
 
@@ -23,7 +23,7 @@ with qw( Pinto::Role::Interface::Action );
 
 has cpanm_options => (
     is      => 'ro',
-    isa     => HashRef[Str],
+    isa     => HashRef[Maybe[Str]],
     default => sub { {} },
     lazy    => 1,
 );
