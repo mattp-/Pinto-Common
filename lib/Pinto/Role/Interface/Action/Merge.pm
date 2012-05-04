@@ -1,8 +1,9 @@
-# ABSTRACT: Interface for Action::Add
+# ABSTRACT: Interface for Action::Copy
 
-package Pinto::Role::Interface::Action::Add;
+package Pinto::Role::Interface::Action::Copy;
 
 use Moose::Role;
+use MooseX::Types::Moose qw(Str);
 
 use namespace::autoclean;
 
@@ -13,12 +14,23 @@ use namespace::autoclean;
 #------------------------------------------------------------------------------
 
 with qw( Pinto::Role::Interface::Action
-         Pinto::Role::Attribute::author
-         Pinto::Role::Attribute::archives
-         Pinto::Role::Attribute::stack
-         Pinto::Role::Attribute::pin
-         Pinto::Role::Attribute::norecurse
          Pinto::Role::Attribute::dryrun );
+
+#------------------------------------------------------------------------------
+
+
+has from_stack => (
+    is       => 'ro',
+    isa      => Str,
+    required => 1,
+);
+
+
+has to_stack => (
+    is       => 'ro',
+    isa      => Str,
+    required => 1,
+);
 
 #------------------------------------------------------------------------------
 

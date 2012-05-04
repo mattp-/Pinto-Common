@@ -16,7 +16,8 @@ with qw( Pinto::Role::Interface::Action
          Pinto::Role::Attribute::targets
          Pinto::Role::Attribute::stack
          Pinto::Role::Attribute::pin
-         Pinto::Role::Attribute::norecurse );
+         Pinto::Role::Attribute::norecurse
+         Pinto::Role::Attribute::dryrun );
 
 #------------------------------------------------------------------------------
 
