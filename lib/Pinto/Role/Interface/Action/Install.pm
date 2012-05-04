@@ -61,10 +61,10 @@ before BUILD => sub {
       or throw 'Must have cpanm to do install';
 
     my $cpanm_version_cmd = "$cpanm_exe --version";
-    my $cpanm_version_cmd_output = qx{$cpanm_version_cmd};
+    my $cpanm_version_cmd_output = qx{$cpanm_version_cmd};  ## no critic qw(Backtick)
     throw "Could not learn version of cpanm: $!" if $?;
 
-    my ($cpanm_version) = $cpanm_version_cmd_output =~ m{version ([\d.]+)}
+    my ($cpanm_version) = $cpanm_version_cmd_output =~ m{version \s+ ([\d.]+)}x
       or throw "Could not parse cpanm version number from $cpanm_version_cmd_output";
 
     my $min_cpanm_version = '1.500';
@@ -80,3 +80,8 @@ before BUILD => sub {
 1;
 
 __END__
+
+=for Pod::Coverage BUILD
+
+=cut
+

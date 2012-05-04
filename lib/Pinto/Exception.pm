@@ -22,7 +22,13 @@ Moose::Exporter->setup_import_methods( as_is => [ throw => \&throw ] );
 #------------------------------------------------------------------------------
 # HACK: I'm not sure this will work with subclasses
 
-sub throw { __PACKAGE__->SUPER::throw(@_) }
+=func throw( $message )
+
+Throws an exception (of this class) with the given message.
+
+=cut
+
+sub throw { return __PACKAGE__->SUPER::throw(@_) }
 
 #------------------------------------------------------------------------------
 
