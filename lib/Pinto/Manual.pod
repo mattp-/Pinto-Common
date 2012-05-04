@@ -87,7 +87,7 @@ that I'm going to use.
 
 An "archive" is the file that developers ship, which contains all
 their application/library code, test cases, build scripts etc.
-Converserly, the archive is the file that users must fetch to install
+Conversely, the archive is the file that users must fetch to install
 the application/library.  Sometimes I also refer to these as
 "distributions".
 
@@ -107,7 +107,7 @@ another distribution archive.  Sometimes I call these "dependencies".
 
 =head1 CONCEPTS
 
-=over4
+=over 4
 
 =item Stack
 
@@ -119,125 +119,34 @@ indexes.  Each of
 
 =item Pin
 
+...
 
-dependencies, you can run the mirror command again (it will be much
-faster now).  But let's suppose that the new C<Foo-2.0> package breaks
-your application.  You can remove its distribution by using the
-C<remove> command like so:
+=back
 
-  $> pinto-admin -r /my/cpan remove A/AU/AUTHOR/Foo-2.0.tar.gz
 
-Now, when you build your dependency stack, you'll get C<Foo-1.0> (or
-whatever version you had before), and all your other dependencies will
-be the latest ones available.
+=head1 PINTO BASICS
 
-=head2 UPGRADING SELECTED PACKAGES
-
-Suppose you just want to upgrade package L<Bar> to version 3.0, which
-was just released to the CPAN.  You can do that with the C<import>
-command like this:
-
-  $> pinto-admin -r /my/cpan import Bar-3.0
-
-This will bring version 3.0 of package L<Bar> into your repository,
-plus any additional dependencies that it requires.
+=head2 PULLING DISTRIBUTIONS FROM THE CPAN
 
 =head2 ADDING YOUR OWN DISTRIBUTIONS
 
-If you package your application into one or more CPAN-style
-distributions, then you can also put your own code in the L<Pinto>
-repository with the C<add> command:
-
-  $> pinto-admin -r /my/cpan add /path/to/My-Dist-1.4.tar.gz
-
-L<Pinto> will index your distribution (just like PAUSE) and add it to
-the repository.  By default, L<Pinto> will also C<import> all the
-dependencies that you've declared in your distribution.
-
-Once again, you can point your installer client at F</my/cpan> to
-install your distribution, and it will unwind and install all the
-dependencies for you, using the L<Pinto> repository as the source.
-
 =head2 PATCHING A CPAN DISTRIBUTION
 
-Let's suppose that your application depends on L<Plack>, and you've
-found a critical bug in it.  For whatever reason, the author of Plack
-can't or won't fix the bug and you decide to patch the code yourself.
-So after you've downloaded the distribution (or perhaps made a copy of
-the one in your repository), patched the code and packaged it back up,
-you can add it to your repository with the C<add> command:
+=head1 ADVANCED PINTO
 
-  $> pinto-admin -r /my/cpan add ~/tmp/Plack-0.89-PATCHED.tar.gz
+=head2 CREATING STACKS
 
-This is called adding a "local" distribution.  The packages in a local
-distribution are always considered newer than the same package in a
-"foreign" distribution.  So when clients request the "Plack" package
-from your repository, they will always get your patched version, even
-if the repository contains a foreign version with a higher version
-number.
+=head2 WORKING WITH STACKS
 
-Eventually, the author of Plack finally fixes that bug and releases a
-new distribution.  You can pull that distribution into your repository
-(and the latest version of all the other distributions) by running the
-C<mirror> command.  Finally, you can remove your patched version with
-the C<remove> command:
-
-  $> pinto-admin -r /my/cpan remove Plack-0.89-PATCHED.tar.gz
-
-Clients requesting the "Plack" package will no longer get your patched
-version, but will get the latest version that was pulled from the CPAN
-instead.
+=head2 MANAGING CHANGE
 
 =head1 PINTO AND THE DEVELOPMENT CYCLE
-
-Even though *the* CPAN has been around for many years, the concept of
-using CPAN-like infrastructure for private development is still
-relatively novel.  So for many folks (including me), it isn't
-immediately clear how to incorporate Pinto with the development cycle.
-
-The following describes several usage scenarios for Pinto.  Some come
-from my own experience, but some are just theoretical.  If you are
-using Pinto (or some other variety of private CPAN) in other ways,
-please let me know so that I can document it here.
-
-=head2 USAGE STRATEGIES
-
-Given the above use cases, I see four basic strategies for using
-L<Pinto>, although I'm sure folks will probably come up with others...
-
-=head3 Local Distributions Only
-
-The first strategy is to use Pinto purely as a repository for local
-distributions.  These distributions could be private or public, or a
-mix of both.  But the repository contains only the distributions that
-you explicitly add to it.
-
-=head3 Project-specific Repository
-
-The fourth (and probably most useful) strategy is to start with an
-empty Pinto repository and organically C<add> your local distributions
-and C<import> their dependencies as the project evolves over time.  This
-keeps your repository small and focused.
 
 =head1 PINTO AND TEAMS
 
 =head1 PINTO AND DEPLOYMENT
 
 =head1 PINTO AND VERSION CONTROL SYSTEMS
-
-One of the major motivations behind Pinto was to integrate with
-version control systems (VCS).  Changing dependencies are a frequent
-cause of application failure (either in development or, gasp, in
-production).  So it is natural to want a mechanism to rollback your
-dependencies to a "known-good-state".  This is a natural fit for VCS.
-
-L<Pinto> integrates with VCS by committing (and optionally tagging)
-changes to your repository.  L<Pinto> does not provide any direct
-mechanism for branching/merging/reverting your VCS.  Nor does L<Pinto>
-know which revision of your repository is the "right" one.  It is
-still up to you to figure that out.  But since everything L<Pinto>
-does is always in your VCS, you should have everything you need to
-solve those problems.
 
 =head1 PINTO AND OTHER PACKAGING SYSTEMS
 
