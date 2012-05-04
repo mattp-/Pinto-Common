@@ -31,7 +31,7 @@ has properties => (
 );
 
 
-has master => (
+has default => (
   is      => 'ro',
   isa     => Bool,
   default => 0,
