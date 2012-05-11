@@ -1,5 +1,9 @@
 {{$NEXT}}
 
+    Updated Pinto::Manual
+
+    Eliminated lots of Roles.
+
 0.040_002 2012-05-04 15:22:43 America/Los_Angeles
 
     Added interface for Action::Install.  Still alpha testing.
