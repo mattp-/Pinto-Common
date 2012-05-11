@@ -27,7 +27,18 @@ is(ref $t->uri(), 'URI::http', 'Coerced URI from string');
 
 $t->author('hello');
 is($t->author, 'HELLO', 'Coerced Author ID from string');
-throws_ok {$t->author('foo bar!') } qr/alphanumeric/, 'AuthorID type constraint';
+throws_ok {$t->author('foo bar!') } qr/alphanumeric/, 'AuthorID must be alphanumeric';
+throws_ok {$t->author('') } qr/alphanumeric/, 'AuthorID must have length';
+
+$t->stack('MyStack');
+is($t->stack, 'mystack', 'Coerced StackName from string');
+throws_ok {$t->stack('foo bar!') } qr/alphanumeric/, 'StackName must be alphanumeric';
+throws_ok {$t->stack('') } qr/alphanumeric/, 'StackName must have length';
+
+$t->stack('MyProperty');
+is($t->stack, 'myproperty', 'Coerced PropertyName from string');
+throws_ok {$t->property('foo bar!') } qr/alphanumeric/, 'PropertyName must be alphanumeric';
+throws_ok {$t->property('') } qr/alphanumeric/, 'PropertyName must have length';
 
 $t->version(5.1);
 is(ref $t->version, 'version', 'Coerced version from number');
@@ -47,7 +58,7 @@ $t->dist('author/subdir/Dist-1.0.tar.gz');
 is(ref $t->dist, 'Pinto::DistributionSpec', 'Coerced DistributionSpec from string');
 is($t->dist->author, 'AUTHOR', 'DistributionSpec has correct author');
 is_deeply($t->dist->subdirs, ['subdir'], 'DistribiutionsSpec has correct subdirs');
-is($t->dist->basename, 'Dist-1.0.tar.gz', 'DistribiutionsSpec has correct basename');
+is($t->dist->archive, 'Dist-1.0.tar.gz', 'DistribiutionsSpec has correct archive');
 
 $t->targets('author/subdir/Dist-1.0.tar.gz');
 is(ref $t->targets, 'ARRAY', 'Coerced ArrayRef from string');

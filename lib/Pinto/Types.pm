@@ -5,7 +5,7 @@ package Pinto::Types;
 use strict;
 use warnings;
 
-use MooseX::Types -declare => [ qw( AuthorID Uri Dir File IO Vers
+use MooseX::Types -declare => [ qw( AuthorID Uri Dir File Io Vers StackName PropertyName
                                     Pkg Dist ArrayRefOfFiles ArrayRefOfPkgsOrDists) ];
 
 use MooseX::Types::Moose qw(Str Num ScalarRef ArrayRef HashRef FileHandle Object Int);
@@ -30,12 +30,35 @@ use namespace::autoclean;
 
 subtype AuthorID,
     as Str,
-    where { not m/[^A-Z0-9-]/x },
+    where { length and not m/[^A-Z0-9-]/x },
     message { "The author id ($_) must be alphanumeric" };
 
 coerce AuthorID,
     from Str,
     via  { uc $_ };
+
+#-----------------------------------------------------------------------------
+
+subtype StackName,
+    as Str,
+    where { length and not m/[^a-z0-9-_:]/x },
+    message { "The stack name ($_) must be alphanumeric" };
+
+coerce StackName,
+    from Str,
+    via  { lc $_ };
+
+#-----------------------------------------------------------------------------
+
+subtype PropertyName,
+    as Str,
+    where { length and not m/[^a-z0-9-_:]/x },
+    message { "The property name ($_) must be alphanumeric" };
+
+coerce PropertyName,
+    from Str,
+    via  { lc $_ };
+
 #-----------------------------------------------------------------------------
 
 class_type Vers, {class => 'version'};
@@ -130,9 +153,9 @@ sub _coerce_str_to_spec {
 
 #-----------------------------------------------------------------------------
 
-subtype IO, as Object;
+subtype Io, as Object;
 
-coerce IO,
+coerce Io,
     from Str,        via { my $fh = IO::File->new(); $fh->open($_);   return $fh },
     from File,       via { my $fh = IO::File->new(); $fh->open("$_"); return $fh },
     from ArrayRef,   via { IO::Handle->new_from_fd( @$_ ) },
