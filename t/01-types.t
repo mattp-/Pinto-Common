@@ -26,9 +26,9 @@ $t->uri('http://nuts');
 is(ref $t->uri(), 'URI::http', 'Coerced URI from string');
 
 $t->author('hello');
-is($t->author, 'HELLO', 'Coerced Author ID from string');
-throws_ok {$t->author('foo bar!') } qr/alphanumeric/, 'AuthorID must be alphanumeric';
-throws_ok {$t->author('') } qr/alphanumeric/, 'AuthorID must have length';
+is($t->author, 'HELLO', 'Coerced Author from string');
+throws_ok {$t->author('foo bar!') } qr/alphanumeric/, 'Author must be alphanumeric';
+throws_ok {$t->author('') } qr/alphanumeric/, 'Author must have length';
 
 $t->stack('MyStack');
 is($t->stack, 'mystack', 'Coerced StackName from string');
