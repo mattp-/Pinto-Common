@@ -6,9 +6,9 @@ use strict;
 use warnings;
 
 use MooseX::Types -declare => [ qw( Author Uri Dir File Files Io Vers StackName
-                                    PropertyName PkgSpec DistSpec Spec Specs) ];
+                                    MaybeStackName PropertyName PkgSpec DistSpec Spec Specs) ];
 
-use MooseX::Types::Moose qw(Str Num ScalarRef ArrayRef HashRef FileHandle Object Int);
+use MooseX::Types::Moose qw(Maybe Str Num ScalarRef ArrayRef HashRef FileHandle Object Int);
 
 use URI;
 use Class::Load;
@@ -31,7 +31,7 @@ use namespace::autoclean;
 
 subtype Author,
   as Str,
-  where   { length and not m/[^A-Z0-9-]/x },
+  where   { m/^ [A-Z0-9-]+ $/x },
   message { "The author id ($_) must be alphanumeric" };
 
 coerce Author,
@@ -42,12 +42,23 @@ coerce Author,
 
 subtype StackName,
   as      Str,
-  where   { length and not m/[^a-z0-9-_:]/x },
+  where   { m/^ [a-z0-9-_:]+ $/x },
   message { "The stack name ($_) must be alphanumeric" };
 
 coerce StackName,
   from Str,
   via  { lc $_ };
+
+#-----------------------------------------------------------------------------
+
+subtype MaybeStackName,
+  as    Maybe[StackName],
+  where   { !defined($_) || m/^ [a-z0-9-_:]+ $/x },
+  message { $_ = 'undef' if not defined($_); "The stack name ($_) must be alphanumeric" };
+
+coerce MaybeStackName,
+  from Str,
+  via  { defined($_) ? lc $_ : $_ };
 
 #-----------------------------------------------------------------------------
 
