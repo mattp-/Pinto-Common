@@ -2,7 +2,7 @@ package TestClass;
 
 use Moose;
 use Pinto::Types qw( File Dir Uri Io Author Vers PropertyName
-                     MaybeStackName StackName PkgSpec DistSpec Specs );
+                     StackName PkgSpec DistSpec Specs );
 
 #-----------------------------------------------------------------------------
 
@@ -41,14 +41,6 @@ has stack => (
     isa => StackName,
     coerce => 1,
 );
-
-
-has maybe_stack => (
-    is  => 'rw',
-    isa => MaybeStackName,
-    coerce => 1,
-);
-
 
 has property => (
     is  => 'rw',

@@ -35,13 +35,6 @@ is($t->stack, 'mystack', 'Coerced StackName from string');
 throws_ok {$t->stack('foo bar!') } qr/alphanumeric/, 'StackName must be alphanumeric';
 throws_ok {$t->stack('') } qr/alphanumeric/, 'StackName must have length';
 
-$t->maybe_stack('MyStack');
-is($t->maybe_stack, 'mystack', 'Coerced MaybeStackName from string');
-throws_ok {$t->maybe_stack('foo bar!') } qr/alphanumeric/, 'MaybeStackName must be alphanumeric';
-throws_ok {$t->maybe_stack('') } qr/alphanumeric/, 'MaybeStackName must have length';
-
-$t->maybe_stack(undef);
-is($t->maybe_stack, undef, 'MaybeStackName accepts undef');
 
 $t->property('MyProperty');
 is($t->property, 'myproperty', 'Coerced PropertyName from string');

@@ -6,19 +6,19 @@ use strict;
 use warnings;
 
 use MooseX::Types -declare => [ qw( Author Uri Dir File Files Io Vers StackName
-                                    MaybeStackName PropertyName PkgSpec DistSpec Spec Specs) ];
+                                    PropertyName PkgSpec DistSpec Spec Specs) ];
 
-use MooseX::Types::Moose qw(Maybe Str Num ScalarRef ArrayRef HashRef FileHandle Object Int);
+use MooseX::Types::Moose qw( Str Num ScalarRef ArrayRef
+                             HashRef FileHandle Object Int );
 
 use URI;
-use Class::Load;
 use Path::Class::Dir;
 use Path::Class::File;
-use Pinto::SpecFactory;
-use File::HomeDir;
 use IO::String;
 use IO::Handle;
 use IO::File;
+
+use Pinto::SpecFactory;
 
 use version;
 use namespace::autoclean;
@@ -48,17 +48,6 @@ subtype StackName,
 coerce StackName,
   from Str,
   via  { lc $_ };
-
-#-----------------------------------------------------------------------------
-
-subtype MaybeStackName,
-  as    Maybe[StackName],
-  where   { !defined($_) || m/^ [a-z0-9-_:]+ $/x },
-  message { $_ = 'undef' if not defined($_); "The stack name ($_) must be alphanumeric" };
-
-coerce MaybeStackName,
-  from Str,
-  via  { defined($_) ? lc $_ : $_ };
 
 #-----------------------------------------------------------------------------
 
