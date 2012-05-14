@@ -37,7 +37,7 @@ around BUILDARGS => sub {
 
     my @args = @_;
     if (@args == 1 and not ref $args[0]) {
-        my ($name, $version) = split m{-}x, $_[0], 2;
+        my ($name, $version) = split m{~}x, $_[0], 2;
         @args = (name => $name, version => $version || 0);
     }
 
@@ -55,7 +55,7 @@ whenever the PackageSpec is evaluated in string context.
 
 sub to_string {
     my ($self) = @_;
-    return sprintf '%s-%s', $self->name, $self->version->stringify;
+    return sprintf '%s~%s', $self->name, $self->version->stringify;
 }
 
 #------------------------------------------------------------------------------
