@@ -1,5 +1,11 @@
 {{$NEXT}}
 
+     Updated Pinto::Manual
+
+     Removed unused roles and classes.
+
+     Added StackName and PropertyName types.
+
 0.038     2012-04-24 22:02:17 America/Los_Angeles
 
      Bug Fixes:
