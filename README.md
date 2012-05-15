@@ -4,7 +4,7 @@ Pinto::Common - Common modules for the pinto-* utilities
 
 # VERSION
 
-version 0.041
+version 0.042
 
 # DESCRIPTION
 

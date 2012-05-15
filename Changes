@@ -1,8 +1,9 @@
 {{$NEXT}}
 
-0.041     2012-05-15 11:07:07 America/Los_Angeles
+     Added a main Pinto::Manual page, that redirects you
+     to Pinto::Manual::Tutorial or Pinto::Manual::QuickStart
 
-     Updated Pinto::Manual
+0.041     2012-05-15 11:07:07 America/Los_Angeles
 
      Removed unused roles and classes.
 
