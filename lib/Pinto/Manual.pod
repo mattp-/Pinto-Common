@@ -1,0 +1,33 @@
+# ABSTRACT: Entry point for Pinto documentation
+
+package Pinto::Manual;
+
+#------------------------------------------------------------------------------
+
+# VERSION
+
+#------------------------------------------------------------------------------
+1;
+
+__END__
+
+=pod
+
+=head1 TABLE OF CONTENTS
+
+The manual consists of the following documents
+
+=over 4
+
+=item L<Pinto::Manual::Tutorial>
+
+Presents a narrative tutorial of how to use L<Pinto> to solve some
+typical development challenges.
+
+=item L<Pinto::Manual::QuickStart>
+
+Presents a condensed summary of L<pinto> commands.
+
+=back
+
+=cut
