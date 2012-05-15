@@ -16,6 +16,14 @@ use namespace::autoclean;
 
 #-------------------------------------------------------------------------------
 
+=method make_spec( $string )
+
+[Class Method] Returns either a L<Pinto::DistributionSpec> or
+L<Pinto::PackageSpec> object constructed from the given C<$string>.
+
+=cut
+
+
 sub make_spec {
     my ($class, $arg) = @_;
 
