@@ -42,16 +42,16 @@ more information on that.
 The first step in using Pinto is to create a repository, using the
 L<init|App::Pinto::Command::init> command like this:
 
-  $> pinto -r ~/my/repos init
+  $> pinto -r ~/repos init
 
-This will create a new repository in the F<~/my/repos> directory.  If
+This will create a new repository in the F<~/repos> directory.  If
 that directory does not exist, it will be created for you.  If it
 already does exist, then it must be empty.
 
 The C<-r> (or C<--root>) option specifies where the repository is.
-This argument is required for every L<pinto> command.  But if you
-get tired of typing it, you can set the C<PINTO_REPOSITORY_ROOT>
-to point to your repository instead.
+This argument is required for every L<pinto> command.  But if you get
+tired of typing it, you can set the C<PINTO_REPOSITORY_ROOT>
+environment variable to point to your repository instead.
 
 =head2 Inspecting the repository
 
@@ -59,7 +59,7 @@ Now that you have a repository, let's look inside it.  To see the
 contents of a repository, use the L<list|App::Pinto::Command::list>
 command:
 
-  $> pinto -r ~/my/repos list
+  $> pinto -r ~/repos list
 
 You will use the L<list|App::Pinto::Command::list> command quite
 often.  But at this point, the listing will be empty because there is
@@ -70,16 +70,16 @@ nothing in the repository.  So let's go ahead and add something...
 Suppose we are working on an application called My-App that contains a
 package called C<My::App>.  The application also depends on the L<URI>
 package.  Using the L<pull|App::Pinto::Command::pull> command, you can
-bring the L<URI> package into your repository:
+bring the URI package into your repository:
 
-  $> pinto -r ~/my/repos pull URI
+  $> pinto -r ~/repos pull URI
 
-Now, you should have L<URI> in your local repository.  So lets look
+Now, you should have URI in your local repository.  So lets look
 and see what we really got.  Once again, you use the
 L<list|App::Pinto::Command::list> command to see inside the
 repository:
 
-  $> pinto -r ~/my/repos list
+  $> pinto -r ~/repos list
 
 This time, the listing will look something like this:
 
@@ -94,13 +94,13 @@ can repeat this process for each package that your application depends
 on.  In fact, you can pull all your prerequisites into the repository
 at once...
 
-  $> pinto -r ~/my/repos pull URI LWP Catalyst Plack ...
+  $> pinto -r ~/repos pull URI LWP Catalyst Plack ...
 
 Or if you're using L<Dist::Zilla> to build your application, you can ask
 it to provide the list of prerequisites...
 
   # From the My-App dist directory...
-  $> dzil listdeps | pinto -r ~/my/repos pull
+  $> dzil listdeps | pinto -r ~/repos pull
 
 If any of those prerequisites have prerequisites of their own, then they
 will be recursively pulled as well, until the repository contains all
@@ -113,9 +113,9 @@ release the first version.  Using your preferred build tool
 (L<ExtUtils::MakeMaker>, L<Module::Build>, L<Module::Install> etc.)
 you package a release as F<My-App-1.0.tar.gz>.  Now put the
 distribution into the repository with the
-C<add|App::Pinto::Command::add> command:
+L<add|App::Pinto::Command::add> command:
 
-  $> pinto -r ~/my/repos add path/to/My-App-1.0.tar.gz
+  $> pinto -r ~/repos add path/to/My-App-1.0.tar.gz
 
 When you list the repository contents now, it will include the
 C<My::App> package and show you as the author of the distribution:
@@ -129,13 +129,14 @@ C<My::App> package and show you as the author of the distribution:
 =head2 Installing packages
 
 Now the repository contains both your application and all of its
-prerequisites, so you can install it using the C<install> command like
-this (requires cpanm 1.5013 or newer):
+prerequisites, so you can install it using the
+L<install|App::Pinto::Command::install> command (this requires cpanm
+1.5013 or newer):
 
-  $> pinto -r ~/my/repos install My::App
+  $> pinto -r ~/repos install My::App
 
 When C<My::App> is installed, it will only use the prerequisites that
-are in your repository.  Even if a newer version of L<URI> is released
+are in your repository.  Even if a newer version of URI is released
 to the CPAN in the future, C<My::App> will always be built with the
 same versions of the same prerequisites that you developed and tested
 against.  This ensures your application builds will be stable and
@@ -144,14 +145,14 @@ predictable.
 =head2 Upgrading a dependency
 
 Suppose that several weeks have passed since you first released My-App
-and now L<URI> version 1.62 is available on the CPAN.  It has some bug
+and now URI version 1.62 is available on the CPAN.  It has some bug
 critical fixes that you'd like to get.  Again, we can bring that into
 the repository using the L<pull|App::Pinto::Command::pull> command.
 But since your repository already contains a version of URI, you must
 indicate that you want a *newer* one by specifying the minimum version
 that you want:
 
-  $> pinto -r ~/my/repos pull URI~1.62
+  $> pinto -r ~/repos pull URI~1.62
 
 If you look at the listing again, this time you'll see the newer
 version of URI (and possibly other packages as well):
@@ -169,7 +170,7 @@ version 1.62 of URI.
 =head1 WORKING WITH STACKS
 
 So far in this tutorial, we've treated the repository as a singular
-resource.  For example, when we upgraded L<URI> in the last section,
+resource.  For example, when we upgraded URI in the last section,
 it impacted every person and every application that might have been
 using the repository.  But this kind of broad impact is undesirable.
 You would prefer to make those kinds of changes in isolation and test
@@ -191,9 +192,8 @@ affects one stack.
 
 Before getting into the gory details, you first need to know about the
 default stack.  For most operations, the name of the stack is an
-optional argument or switch.  So if you do not specify a stack
-explicitly, then the operation is applied to whichever stack is marked
-as the default.
+optional parameter.  So if you do not specify a stack explicitly, then
+the operation is applied to whichever stack is marked as the default.
 
 In any repository, there is exactly one default stack.  When you
 create a repository, it comes with a stack called C<init> and this
@@ -217,14 +217,14 @@ but the C<init> stack already has the prerequisites for My-App, so
 we're just going to make a clone using the
 L<copy|App::Pinto::Command::copy> command:
 
-  $> pinto -r ~/my/repos/ copy init uri_upgrade
+  $> pinto -r ~/repos copy init uri_upgrade
 
 This creates a new stack called C<uri_upgrade> (stack names must be
 alphanumeric and are forced to lowercase).  If you want to see the
 contents of that stack, just use the L<list|App::Pinto::Command::list>
 command with the C<--stack> option:
 
-  $> pinto -r ~/my/repos list --stack uri_upgrade
+  $> pinto -r ~/repos list --stack uri_upgrade
 
 The listing should be identical to the C<init> stack:
 
@@ -239,7 +239,7 @@ as before, you'll use the L<pull|App::Pinto::Command::pull> command,
 but this time, you'll tell Pinto that you want the package to be
 pulled onto the C<uri_upgrade> stack:
 
-  $> pinto -r ~/my/repos pull --stack uri_upgrade URI~1.62
+  $> pinto -r ~/repos pull --stack uri_upgrade URI~1.62
 
 Now look at the repository contents again.  You'll use the
 L<list|App::Pinto::Command::list> command, but this time you'll use
@@ -247,7 +247,7 @@ the special stack name "@" to indicate that we want to look B<across>
 all the stacks.  In addition, you'll use the C<--packages> option to
 limit the listing to just the packages that you are interested in:
 
-  $> pinto -r ~/my/repos/ list --stack @  --packages URI
+  $> pinto -r ~/repos/ list --stack @  --packages URI
 
 You'll see that the C<init> stack still contains version 1.60 of URI,
 but the C<uri_upgarde> stack now contains version 1.62:
@@ -262,7 +262,7 @@ building and testing our application.  All you have to do is run the
 L<install|App::Pinto::Command::install> command and point to to the
 right stack:
 
-  $> pinto -r ~/my/repos install --stack uri_upgrade My::App
+  $> pinto -r ~/repos install --stack uri_upgrade My::App
 
 This will build My::App using only the prerequisites that are on the
 C<uri_upgrade> stack.  If the tests pass, then you can confidently
@@ -290,7 +290,7 @@ in a stack.  Any attempt to upgrade it (either directly or via another
 prerequisite) will fail.  To pin a package, use the
 L<pin|App::Pinto::Command::pin> command like this:
 
-  $> pinto -r ~/my/repos pin URI
+  $> pinto -r ~/repos pin URI
 
 If you look at the listing for the C<init> stack again, you'll see
 something like this:
@@ -314,7 +314,7 @@ of URI is released that fixes the bug.  When that happens, you can
 unpin URI from the stack using the L<unpin|App::Pinto::Command::unpin>
 command:
 
-  $> pinto -r ~/my/repos unpin URI
+  $> pinto -r ~/repos unpin URI
 
 At this point you're free to upgrade URI to the latest version
 whenever you're ready.  Just as with pinning, when you unpin a
@@ -338,7 +338,7 @@ As you reach the end of the development cycle, you can merge all the
 changes on the C<dev> stack back to the C<prod> stack using the
 L<merge|App::Pinto::Command::merge> command like this:
 
-  $> pinto -r ~/my/repos merge dev prod
+  $> pinto -r ~/repos merge dev prod
 
 If the C<prod> stack contains pins that conflict with the packages in
 the C<dev> stack, then the merge is aborted.  If the tests are all
@@ -362,40 +362,41 @@ make a local patch of the CPAN distribution.
 
 So suppose that you forked the code for L<URI> and made a local
 version of the distribution called F<URI-1.60_PATCHED.tar.gz>.  You
-can add it to your repository using the C<add> command:
+can add it to your repository using the
+L<add|App::Pinto::Command::add> command:
 
-  $> pinto -r ~/my/repos add path/to/URI-1.60_PATCHED.tar.gz
+  $> pinto -r ~/repos add path/to/URI-1.60_PATCHED.tar.gz
 
 In this situation, it is wise to pin the package as well, since you do
 not want it to be upgraded until you are sure that the new release
 includes your patch or the author has fixed the bug by other means.
 
-  $> pinto -r ~/my/repos pin URI
+  $> pinto -r ~/repos pin URI
 
-When the author of L<URI> release version 1.62 of URI with your patch,
+When the author of URI releases version 1.62 with your patch,
 you'll want to try it before deciding to unpin from your locally
 patched version.  Just as before, this can be done by cloning the
 stack with the L<copy|App::Pinto::Command::copy> command.  Let's call
 it the "trial" stack this time:
 
- $> pinto -r ~/my/repos copy init trial
+ $> pinto -r ~/repos copy init trial
 
 But before you can upgrade URI on the C<trial> stack, you'll have to
 unpin it there:
 
-  $> pinto -r ~/my/repos unpin --stack trial URI
+  $> pinto -r ~/repos unpin --stack trial URI
 
 Now you can proceed to upgrade URI on the stack and try building
 C<My::App> like this:
 
-  $> pinto -r ~/my/repos pull --stack trial URI~1.62
-  $> pinto -r ~/my/repos install --stack trial My::App
+  $> pinto -r ~/repos pull --stack trial URI~1.62
+  $> pinto -r ~/repos install --stack trial My::App
 
 If all goes well, remove the pin from the C<init> stack and pull your
 latest version of URI back to it.
 
-  $> pinto -r ~/my/repos unpin URI
-  $> pinto -r ~/my/repos pull URI~1.62
+  $> pinto -r ~/repos unpin URI
+  $> pinto -r ~/repos pull URI~1.62
 
 =head1 WORKING WITH LEGACY CODE
 
@@ -412,7 +413,7 @@ environment and produce a list of the precise distributions that
 you'll need.  You can then bring all those distributions into your
 repository with the L<pull|App::Pinto::Command::pull> command:
 
-  $> pinto -r ~/my/repos pull --norecurse < LIST_OF_DISTS
+  $> pinto -r ~/repos pull --norecurse < LIST_OF_DISTS
 
 Notice the C<--norecurse> option here.  This time, you don't want
 Pinto to recursively pull prerequisites.  Instead, you just want it to
@@ -447,7 +448,7 @@ environment in F<~/perl5> (perhaps using L<local::lib> or L<perlbrew>.
 When you want to try a new web framework, you can ask Pinto to install
 it into your local development environment, like this:
 
-  $> pinto -r ~/my/repos install Dancer -l ~/perl5 --pull
+  $> pinto -r ~/repos install Dancer -l ~/perl5 --pull
 
 The C<-l> option is passed to L<cpanm> and directs it to install
 packages into your F<~/perl5> directory instead of C<site_perl>.  The
