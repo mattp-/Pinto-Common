@@ -19,10 +19,13 @@ The manual consists of the following documents
 
 =over 4
 
+=item L<Pinto::Manual::Introduction>
+
+Explains why Pinto exists, defines terms and concepts.
+
 =item L<Pinto::Manual::Tutorial>
 
-Presents a narrative tutorial of how to use L<Pinto> to solve some
-typical development challenges.
+Presents a narrative explanation of how to use L<Pinto>.
 
 =item L<Pinto::Manual::QuickStart>
 
