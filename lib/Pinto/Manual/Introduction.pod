@@ -52,13 +52,13 @@ born.
 
 =head1 COMPONENTS
 
-The Pinto suite consists of a suite of libraries and applications.
-Each component ships in a separate distribution, so you don't have to
+The Pinto suite consists of several libraries and applications.  Each
+component ships in a separate distribution, so you don't have to
 install the whole kit if you're only going to use a subset of the
-L<Pinto> suite.  However, you can install L<Task::Pinto> if you'd like
-to get everything in one shot.
+Pinto suite.  However, you can install L<Task::Pinto> if you'd like to
+get everything in one shot.
 
-=head1 L<pinto>
+=head2 L<pinto>
 
 L<pinto> is a command line application for creating and managing a
 Pinto repository.  It is just the front-end, so you'll also need to

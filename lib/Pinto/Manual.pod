@@ -21,7 +21,7 @@ The manual consists of the following documents
 
 =item L<Pinto::Manual::Introduction>
 
-Explains why Pinto exists, defines terms and concepts.
+Explains the goals, terminology, and concepts in L<Pinto>.
 
 =item L<Pinto::Manual::Tutorial>
 
