@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+     Added a Pinto::Manual::Introduction to explain
+     some whys and wheres.
+
 0.042     2012-05-15 11:43:35 America/Los_Angeles
 
      Added a main Pinto::Manual page, that redirects you
