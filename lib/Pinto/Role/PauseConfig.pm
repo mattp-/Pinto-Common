@@ -82,7 +82,7 @@ sub _build_pausecfg {
 
 =pod
 
-=for stopwords pauserc
+=for stopwords pauserc pausecfg
 
 =cut
 
