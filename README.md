@@ -1,6 +1,6 @@
 # NAME
 
-Pinto::Common - Common modules for the pinto-* utilities
+Pinto::Common - Common modules for the pinto-\* utilities
 
 # VERSION
 
