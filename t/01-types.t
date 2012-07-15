@@ -35,6 +35,13 @@ is($t->stack, 'mystack', 'Coerced StackName from string');
 throws_ok {$t->stack('foo bar!') } qr/alphanumeric/, 'StackName must be alphanumeric';
 throws_ok {$t->stack('') } qr/alphanumeric/, 'StackName must have length';
 
+lives_ok { $t->stack_at('@') } q{StackAt as "@"};
+dies_ok { $t->stack_at('') } 'Invalid StackAt';
+dies_ok { $t->stack_at('X') } 'Invalid StackAt';
+
+lives_ok { $t->stack_default(undef) } q{StackDefault as undef};
+dies_ok { $t->stack_default('') } 'Invalid StackDefault';
+dies_ok { $t->stack_default('X') } 'Invalid StackDefault';
 
 $t->property('MyProperty');
 is($t->property, 'myproperty', 'Coerced PropertyName from string');

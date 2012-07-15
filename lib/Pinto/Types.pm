@@ -6,9 +6,10 @@ use strict;
 use warnings;
 
 use MooseX::Types -declare => [ qw( Author Uri Dir File Files Io Vers StackName
-                                    PropertyName PkgSpec DistSpec Spec Specs) ];
+                                    StackAt StackDefault PropertyName PkgSpec
+                                    DistSpec Spec Specs) ];
 
-use MooseX::Types::Moose qw( Str Num ScalarRef ArrayRef
+use MooseX::Types::Moose qw( Str Num ScalarRef ArrayRef Undef
                              HashRef FileHandle Object Int );
 
 use URI;
@@ -48,6 +49,18 @@ subtype StackName,
 coerce StackName,
   from Str,
   via  { lc $_ };
+
+#-----------------------------------------------------------------------------
+
+subtype StackAt,
+  as      Str,
+  where   { $_ eq '@' },
+  message { q{StackAt must be '@'} };
+
+#-----------------------------------------------------------------------------
+
+subtype StackDefault,
+  as      Undef;
 
 #-----------------------------------------------------------------------------
 
