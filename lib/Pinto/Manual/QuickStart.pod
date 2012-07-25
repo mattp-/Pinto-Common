@@ -138,7 +138,7 @@ __END__
   # Show a list of pinto commands
   pinto commands
 
-  # Show a breif summary of a COMMAND
+  # Show a brief summary of a COMMAND
   pinto help COMMAND
 
   # Show the manual for a COMMAND
